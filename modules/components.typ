@@ -495,7 +495,7 @@
 // --------------------------------------------
 
 // 直接导出所有组件函数
-#let list = list-view
+#let list-view = list-view
 #let description-list = description-list
 #let tag-list = tag-list
 #let two-col = two-col
@@ -509,16 +509,16 @@
 #let info-card = info-card
 #let timeline = timeline
 #let timeline-item = timeline-item
-#let date = date-text
-#let label = label-text
-#let tech = tech-text
-#let highlight = highlight-text
-#let link = styled-link
+#let date-text = date-text
+#let label-text = label-text
+#let tech-text = tech-text
+#let highlight-text = highlight-text
+#let styled-link = styled-link
 #let icon-link = icon-link
 
 /// 导出所有组件字典（用于需要传递所有组件的场景）
 #let components = (
-  list: list-view,
+  list-view: list-view,
   description-list: description-list,
   tag-list: tag-list,
   two-col: two-col,
@@ -532,10 +532,10 @@
   info-card: info-card,
   timeline: timeline,
   timeline-item: timeline-item,
-  date: date-text,
-  label: label-text,
-  tech: tech-text,
-  highlight: highlight-text,
-  link: styled-link,
+  date-text: date-text,
+  label-text: label-text,
+  tech-text: tech-text,
+  highlight-text: highlight-text,
+  styled-link: styled-link,
   icon-link: icon-link,
 )

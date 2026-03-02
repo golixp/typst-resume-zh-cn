@@ -41,10 +41,6 @@
   leading: spacing.paragraph,
 )
 
-// 注意：link 函数在 components 模块中被重载为 styled-link
-// 如需使用原生 link 样式规则，可以取消下方注释（需要在导入前设置）
-// #show link: set text(fill: colors.primary)
-
 // ============================================
 // 简历正文开始 (Resume Content)
 // ============================================

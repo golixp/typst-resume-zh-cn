@@ -6,7 +6,7 @@
 
 #import "config.typ": *
 #import "icons.typ": icon, icons
-#import "components.typ": *
+#import "components.typ": sidebar, list-view, tag-list, date-text, tech-text, icon-link, styled-link
 
 // --------------------------------------------
 // 章节标题组件 (Section Header Components)
@@ -74,7 +74,7 @@
     icon(icon-name, color: color)
     h(0.15em)
     if link-url != none {
-      link(link-url, text-content: body-content, color: color)
+      styled-link(link-url, text-content: body-content, color: color)
     } else {
       text(fill: color, body-content)
     }
@@ -158,7 +158,7 @@
   description: none,
 ) = {
   sidebar(
-    date(period),
+    date-text(period),
     {
       strong(school)
       h(0.5em)
@@ -232,7 +232,7 @@
   tech-stack: (),
 ) = {
   sidebar(
-    date(period),
+    date-text(period),
     {
       strong(company)
       if location != none {
@@ -397,7 +397,7 @@
     }
     if period != none {
       h(1fr)
-      text(size: font-sizes.small, fill: colors.secondary, date(period))
+      text(size: font-sizes.small, fill: colors.secondary, date-text(period))
     }
   })
   
@@ -539,40 +539,37 @@
 #let info-item = info-item
 #let info-group = info-group
 #let personal-header = personal-header
-#let education = education-item
+#let education-item = education-item
 #let education-list = education-list
-#let work = work-item
+#let work-item = work-item
 #let work-list = work-list
 #let skill-category = skill-category
 #let skill-list = skill-list
 #let skill-cloud = skill-cloud
-#let project = project-item
+#let project-item = project-item
 #let project-list = project-list
 #let summary-list = summary-list
 #let summary-paragraph = summary-paragraph
-#let award = award-item
+#let award-item = award-item
 #let award-list = award-list
-
-// 别名导出（向后兼容）
-#let header = section-header
 
 /// 导出所有模块组件字典
 #let sections = (
-  header: section-header,
+  section-header: section-header,
   info-item: info-item,
   info-group: info-group,
   personal-header: personal-header,
-  education: education-item,
+  education-item: education-item,
   education-list: education-list,
-  work: work-item,
+  work-item: work-item,
   work-list: work-list,
   skill-category: skill-category,
   skill-list: skill-list,
   skill-cloud: skill-cloud,
-  project: project-item,
+  project-item: project-item,
   project-list: project-list,
   summary-list: summary-list,
   summary-paragraph: summary-paragraph,
-  award: award-item,
+  award-item: award-item,
   award-list: award-list,
 )
