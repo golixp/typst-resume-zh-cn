@@ -22,6 +22,12 @@ jobs:
     name: 编译并发布
     runs-on: ubuntu-latest
 
+    # ========== 可配置变量 ==========
+    # 修改此处的值即可编译不同的源文件
+    env:
+      # Typst 源文件名（不含扩展名）
+      TYPST_SOURCE: example
+
     steps:
       # ========== 代码检出 ==========
       - name: 检出代码
@@ -118,15 +124,15 @@ jobs:
       # 编译 Typst 文档为 PDF
       - name: 编译 PDF 文档
         run: |
-          echo "开始编译 example.typ..."
-          typst compile example.typ
+          echo "开始编译 ${TYPST_SOURCE}.typ..."
+          typst compile "${TYPST_SOURCE}.typ"
           
           # 验证输出文件是否存在
-          if [ -f "example.pdf" ]; then
-            echo "编译成功：example.pdf"
-            ls -lh example.pdf
+          if [ -f "${TYPST_SOURCE}.pdf" ]; then
+            echo "编译成功：${TYPST_SOURCE}.pdf"
+            ls -lh "${TYPST_SOURCE}.pdf"
           else
-            echo "错误：编译后未找到 example.pdf"
+            echo "错误：编译后未找到 ${TYPST_SOURCE}.pdf"
             exit 1
           fi
 
@@ -136,7 +142,7 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           # 上传的文件
-          files: example.pdf
+          files: ${{ env.TYPST_SOURCE }}.pdf
           # Release 说明
           body: |
             ## 简历模板 PDF
@@ -144,7 +150,7 @@ jobs:
             此版本由 GitHub Actions 自动构建和发布。
 
             ### 包含文件
-            - `example.pdf` - 编译后的简历示例文档
+            - `${{ env.TYPST_SOURCE }}.pdf` - 编译后的简历示例文档
 
             ### 构建信息
             - 构建时间：${{ github.event.head_commit.timestamp || github.event.repository.updated_at }}

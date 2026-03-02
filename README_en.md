@@ -28,13 +28,13 @@ git clone https://github.com/golixp/typst-resume-zh-cn.git
 #### Initial Setup
 
 ```bash
-git subtree add --prefix=modules https://github.com/golixp/typst-resume-zh-cn.git master --squash
+git subtree add --prefix=resume-zh-cn https://github.com/golixp/typst-resume-zh-cn.git master --squash
 ```
 
 #### Pull Updates
 
 ```bash
-git subtree pull --prefix=modules https://github.com/golixp/typst-resume-zh-cn.git master --squash
+git subtree pull --prefix=resume-zh-cn https://github.com/golixp/typst-resume-zh-cn.git master --squash
 ```
 
 ### Prerequisites
@@ -47,6 +47,65 @@ git subtree pull --prefix=modules https://github.com/golixp/typst-resume-zh-cn.g
 ```bash
 typst compile example.typ
 ```
+
+## GitHub Actions Auto-Release
+
+The project includes a GitHub Actions workflow (`.github/workflows/release.yml`) that automatically compiles Typst documents and publishes the generated PDF to GitHub Releases when a Git tag is pushed.
+
+### Configuration
+
+Edit `.github/workflows/release.yml` and set the `TYPST_SOURCE` environment variable to the target Typst source filename (without the `.typ` extension):
+
+```yaml
+env:
+  TYPST_SOURCE: example  # Replace with your filename
+```
+
+If your resume source file is located in a subdirectory, set `TYPST_SOURCE` to the path relative to the repository root (without the `.typ` extension):
+
+```yaml
+env:
+  TYPST_SOURCE: docs/resume  # Corresponds to docs/resume.typ
+```
+
+### Configuring in an Existing Repository
+
+If you integrate this template into an existing repository via file copying or Git Subtree, you need to manually configure the workflow. GitHub Actions only recognizes workflow files in `.github/workflows/` at the repository root, so you must copy the workflow file to the correct location.
+
+#### Direct File Copy Integration
+
+Copy the `.github/workflows/release.yml` from this project to your repository:
+
+```bash
+mkdir -p .github/workflows
+cp <repository-directory>/.github/workflows/release.yml .github/workflows/release.yml
+```
+
+#### Git Subtree Integration
+
+When files are introduced via Git Subtree under a specific prefix directory (e.g., `resume-zh-cn/`), the `.github/` directory within it will not be recognized by GitHub Actions. You need to manually copy the workflow file to the repository root:
+
+```bash
+mkdir -p .github/workflows
+cp resume-zh-cn/.github/workflows/release.yml .github/workflows/release.yml
+```
+
+Then adjust `TYPST_SOURCE` according to the actual location of your resume source file.
+
+> **Tip**: Regardless of the integration method used, the value of `TYPST_SOURCE` should always be the path to the resume source file relative to the repository root, without the `.typ` extension.
+
+### Trigger a Release
+
+Create a Git tag and push it to the remote repository to trigger the automated build:
+
+```bash
+git tag v1.0.0
+git push origin v1.0.0
+```
+
+The workflow will automatically: install required fonts, compile the Typst document to PDF, create a GitHub Release and upload the PDF file.
+
+> **Note**: The workflow is triggered only by tag pushes. Regular commits will not trigger the release process.
 
 ## Project Structure
 

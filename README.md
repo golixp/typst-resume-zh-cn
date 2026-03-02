@@ -26,13 +26,13 @@ git clone https://github.com/golixp/typst-resume-zh-cn.git
 #### 首次引入
 
 ```bash
-git subtree add --prefix=modules https://github.com/golixp/typst-resume-zh-cn.git master --squash
+git subtree add --prefix=resume-zh-cn https://github.com/golixp/typst-resume-zh-cn.git master --squash
 ```
 
 #### 拉取更新
 
 ```bash
-git subtree pull --prefix=modules https://github.com/golixp/typst-resume-zh-cn.git master --squash
+git subtree pull --prefix=resume-zh-cn https://github.com/golixp/typst-resume-zh-cn.git master --squash
 ```
 
 ### 前置要求
@@ -45,6 +45,65 @@ git subtree pull --prefix=modules https://github.com/golixp/typst-resume-zh-cn.g
 ```bash
 typst compile example.typ
 ```
+
+## GitHub Actions 自动发布
+
+项目内置 GitHub Actions 工作流（`.github/workflows/release.yml`），可在推送 Git 标签时自动编译 Typst 文档并将生成的 PDF 发布到 GitHub Releases。
+
+### 配置
+
+编辑 `.github/workflows/release.yml`，将 `TYPST_SOURCE` 环境变量设置为目标 Typst 源文件名称（不含 `.typ` 扩展名）：
+
+```yaml
+env:
+  TYPST_SOURCE: example  # 替换为你的文件名
+```
+
+如果简历源文件位于子目录中，需将 `TYPST_SOURCE` 设置为相对于仓库根目录的路径（不含 `.typ` 扩展名）：
+
+```yaml
+env:
+  TYPST_SOURCE: docs/resume  # 对应 docs/resume.typ
+```
+
+### 在已有仓库中配置
+
+如果你通过文件复制或 Git Subtree 等方式将本模板集成到已有仓库，需要手动配置工作流。GitHub Actions 仅识别仓库根目录下 `.github/workflows/` 中的工作流文件，因此必须将工作流文件复制到正确位置。
+
+#### 直接复制文件集成
+
+将本项目的 `.github/workflows/release.yml` 复制到你的仓库对应目录：
+
+```bash
+mkdir -p .github/workflows
+cp <仓库目录>/.github/workflows/release.yml .github/workflows/release.yml
+```
+
+#### Git Subtree 集成
+
+通过 Git Subtree 引入的文件位于指定前缀目录下（如 `resume-zh-cn/`），其中包含的 `.github/` 目录不会被 GitHub Actions 识别。需将工作流文件手动复制到仓库根目录：
+
+```bash
+mkdir -p .github/workflows
+cp resume-zh-cn/.github/workflows/release.yml .github/workflows/release.yml
+```
+
+然后根据简历源文件的实际位置调整 `TYPST_SOURCE`。
+
+> **提示**：无论使用哪种集成方式，`TYPST_SOURCE` 的值始终为简历源文件相对于仓库根目录的路径，不含 `.typ` 扩展名。
+
+### 触发发布
+
+创建 Git 标签并推送至远程仓库，即可触发自动构建：
+
+```bash
+git tag v1.0.0
+git push origin v1.0.0
+```
+
+工作流将自动执行以下步骤：安装所需字体、编译 Typst 文档为 PDF、创建 GitHub Release 并上传 PDF 文件。
+
+> **注意**：工作流仅在推送标签时触发，普通的代码提交不会触发发布流程。
 
 ## 项目结构
 
