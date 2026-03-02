@@ -17,6 +17,26 @@ A modular resume template built with [Typst](https://typst.app/), optimized for 
 
 ## Quick Start
 
+### Clone the Repository
+
+```bash
+git clone https://github.com/golixp/typst-resume-zh-cn.git
+```
+
+### Integrate via Git Subtree
+
+#### Initial Setup
+
+```bash
+git subtree add --prefix=modules https://github.com/golixp/typst-resume-zh-cn.git master --squash
+```
+
+#### Pull Updates
+
+```bash
+git subtree pull --prefix=modules https://github.com/golixp/typst-resume-zh-cn.git master --squash
+```
+
 ### Prerequisites
 
 - [Typst](https://typst.app/) >= 0.11.0

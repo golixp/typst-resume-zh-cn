@@ -15,6 +15,26 @@
 
 ## 快速开始
 
+### 克隆仓库
+
+```bash
+git clone https://github.com/golixp/typst-resume-zh-cn.git
+```
+
+### 通过 Git Subtree 集成到已有仓库
+
+#### 首次引入
+
+```bash
+git subtree add --prefix=modules https://github.com/golixp/typst-resume-zh-cn.git master --squash
+```
+
+#### 拉取更新
+
+```bash
+git subtree pull --prefix=modules https://github.com/golixp/typst-resume-zh-cn.git master --squash
+```
+
 ### 前置要求
 
 - [Typst](https://typst.app/) >= 0.11.0
