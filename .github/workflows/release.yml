@@ -1,0 +1,157 @@
+# GitHub Actions 工作流配置
+# 用途：编译 Typst 文档并发布 PDF 到 GitHub Releases
+# 触发条件：推送 tag 或手动触发
+
+name: 发布 PDF
+
+on:
+  # 手动触发（用于测试）
+  workflow_dispatch:
+
+  # 推送 tag 时自动触发
+  push:
+    tags:
+      - '*'
+
+# 设置权限，允许创建 Release
+permissions:
+  contents: write
+
+jobs:
+  build-and-release:
+    name: 编译并发布
+    runs-on: ubuntu-latest
+
+    steps:
+      # ========== 代码检出 ==========
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      # ========== 字体安装 ==========
+      # 安装 Noto 系列字体（通过 apt 包管理器）
+      - name: 安装 Noto 字体
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            fonts-noto-core \
+            fonts-noto-cjk \
+            fonts-noto-color-emoji \
+            fonts-noto-mono
+
+      # 安装 Nerd Font 字体（从 GitHub 下载）
+      - name: 安装 Nerd Font 字体
+        run: |
+          # 创建字体目录
+          mkdir -p ~/.local/share/fonts
+
+          # 下载 Nerd Font Symbols 字体
+          NERD_FONT_VERSION="v3.3.0"
+          NERD_FONT_URL="https://github.com/ryanoasis/nerd-fonts/releases/download/${NERD_FONT_VERSION}/NerdFontsSymbolsOnly.zip"
+          
+          echo "正在下载 Nerd Font Symbols..."
+          curl -fsSL -o /tmp/nerd-fonts.zip "${NERD_FONT_URL}"
+          
+          # 解压字体文件到用户字体目录
+          echo "正在解压字体文件..."
+          unzip -o /tmp/nerd-fonts.zip -d ~/.local/share/fonts/
+          
+          # 清理临时文件
+          rm /tmp/nerd-fonts.zip
+
+      # 刷新字体缓存
+      - name: 刷新字体缓存
+        run: |
+          fc-cache -fv
+          echo "字体缓存已刷新"
+
+      # ========== 字体验证 ==========
+      # 验证所有必需字体是否已正确安装
+      - name: 验证字体安装
+        run: |
+          echo "===== 已安装的字体列表 ====="
+          fc-list | head -50
+          
+          echo ""
+          echo "===== 验证必需字体 ====="
+          
+          # 定义需要验证的字体
+          REQUIRED_FONTS=(
+            "Noto Sans"
+            "Noto Sans Mono"
+            "Noto Sans CJK SC"
+            "Noto Color Emoji"
+            "Symbols Nerd Font"
+          )
+          
+          MISSING_FONTS=()
+          
+          for font in "${REQUIRED_FONTS[@]}"; do
+            if fc-list | grep -qi "$font"; then
+              echo "[OK] $font 已安装"
+            else
+              echo "[ERROR] $font 未找到"
+              MISSING_FONTS+=("$font")
+            fi
+          done
+          
+          # 如果有缺失字体，则失败
+          if [ ${#MISSING_FONTS[@]} -ne 0 ]; then
+            echo ""
+            echo "===== 错误：以下字体未安装 ====="
+            printf '%s\n' "${MISSING_FONTS[@]}"
+            exit 1
+          fi
+          
+          echo ""
+          echo "所有必需字体已正确安装"
+
+      # ========== Typst 安装 ==========
+      # 使用官方 Action 安装 Typst 编译器
+      - name: 安装 Typst
+        uses: typst-community/setup-typst@v4
+
+      # 显示 Typst 版本信息
+      - name: 显示 Typst 版本
+        run: typst --version
+
+      # ========== 文档编译 ==========
+      # 编译 Typst 文档为 PDF
+      - name: 编译 PDF 文档
+        run: |
+          echo "开始编译 example.typ..."
+          typst compile example.typ
+          
+          # 验证输出文件是否存在
+          if [ -f "example.pdf" ]; then
+            echo "编译成功：example.pdf"
+            ls -lh example.pdf
+          else
+            echo "错误：编译后未找到 example.pdf"
+            exit 1
+          fi
+
+      # ========== 发布到 GitHub Releases ==========
+      # 创建 Release 并上传 PDF 文件
+      - name: 发布到 GitHub Releases
+        uses: softprops/action-gh-release@v2
+        with:
+          # 上传的文件
+          files: example.pdf
+          # Release 说明
+          body: |
+            ## 简历模板 PDF
+
+            此版本由 GitHub Actions 自动构建和发布。
+
+            ### 包含文件
+            - `example.pdf` - 编译后的简历示例文档
+
+            ### 构建信息
+            - 构建时间：${{ github.event.head_commit.timestamp || github.event.repository.updated_at }}
+            - 提交：${{ github.sha }}
+          # 如果是预发布版本（包含 alpha/beta/rc 等标识）
+          prerelease: ${{ contains(github.ref_name, 'alpha') || contains(github.ref_name, 'beta') || contains(github.ref_name, 'rc') }}
+          # 生成变更日志
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
