@@ -15,6 +15,19 @@ A modular resume template built with [Typst](https://typst.app/), optimized for 
 - **Highly Configurable** - Fonts, colors, spacing, and layouts all customizable
 - **Multiple Layouts** - Two-column, three-column, sidebar, timeline layouts
 
+## Template Preview
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/02df7430-389b-4352-8e52-f251a7205af1" 
+       alt="Resume Template Page 1" 
+       width="45%" 
+       style="border: 1px solid #e1e4e8; border-radius: 6px" />
+  <img src="https://github.com/user-attachments/assets/cdbe1786-0dd6-45b6-8187-2ddda86fed6f" 
+       alt="Resume Template Page 2" 
+       width="45%" 
+       style="border: 1px solid #e1e4e8; border-radius: 6px" />
+</p>
+
 ## Quick Start
 
 ### Clone the Repository

@@ -13,6 +13,19 @@
 - **高度可配置** - 字体、颜色、间距、布局均可通过配置文件调整
 - **多种布局** - 支持双列、三列、侧边栏、时间轴等布局方式
 
+## 模板展示
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/02df7430-389b-4352-8e52-f251a7205af1" 
+       alt="简历展示页 1" 
+       width="45%" 
+       style="border: 1px solid #e1e4e8; border-radius: 6px" />
+  <img src="https://github.com/user-attachments/assets/cdbe1786-0dd6-45b6-8187-2ddda86fed6f" 
+       alt="简历展示页 2" 
+       width="45%" 
+       style="border: 1px solid #e1e4e8; border-radius: 6px" />
+</p>
+
 ## 快速开始
 
 ### 克隆仓库
