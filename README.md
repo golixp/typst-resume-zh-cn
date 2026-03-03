@@ -1,4 +1,4 @@
-# Typst 简历模板 (简体中文)
+# Typst 简历模板
 
 [English](README_en.md) | 中文
 

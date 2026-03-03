@@ -1,4 +1,4 @@
-# Typst Resume Template (Simplified Chinese)
+# Typst Resume Template
 
 English | [中文](README.md)
 
