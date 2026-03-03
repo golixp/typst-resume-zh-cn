@@ -150,13 +150,22 @@ The workflow will automatically: install required fonts, compile the Typst docum
 
 ```
 .
-├── example.typ          # Example resume file
-├── modules/
-│   ├── config.typ       # Configuration (fonts, colors, spacing)
-│   ├── icons.typ        # Icon definitions (Nerdfont)
-│   ├── components.typ   # Base components (layouts, lists, cards)
-│   └── sections.typ     # Section components (work, education, etc.)
-└── README.md
+├── .github
+│   └── workflows
+│       └── release.yml      # GitHub Actions release workflow
+├── modules
+│   ├── config.typ           # Configuration (fonts, colors, spacing)
+│   ├── icons.typ            # Icon definitions (Nerdfont)
+│   ├── components.typ       # Base components (layouts, lists, cards)
+│   └── sections.typ         # Section components (work, education, etc.)
+├── template
+│   └── main.typ             # Example template entry
+├── lib.typ                  # Library entry point (exports modules)
+├── example.typ              # Example resume file
+├── typst.toml               # Typst package manifest
+├── README.md                # Documentation (Chinese)
+├── README_en.md             # Documentation (English)
+└── LICENSE                  # License (MIT)
 ```
 
 ## Usage

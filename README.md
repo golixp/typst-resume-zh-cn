@@ -134,13 +134,22 @@ git push origin v1.0.0
 
 ```
 .
-├── example.typ          # 示例简历文件
-├── modules/
-│   ├── config.typ       # 配置模块（字体、颜色、间距等）
-│   ├── icons.typ        # 图标模块（Nerdfont 图标定义）
-│   ├── components.typ   # 基础组件（布局、列表、卡片等）
-│   └── sections.typ     # 章节组件（工作经历、教育等）
-└── README.md
+├── .github
+│   └── workflows
+│       └── release.yml      # GitHub Actions 发布工作流
+├── modules
+│   ├── config.typ           # 配置模块（字体、颜色、间距等）
+│   ├── icons.typ            # 图标模块（Nerdfont 图标定义）
+│   ├── components.typ       # 基础组件（布局、列表、卡片等）
+│   └── sections.typ         # 章节组件（工作经历、教育等）
+├── template
+│   └── main.typ             # 示例模板入口
+├── lib.typ                  # 模板入口（统一导出模块）
+├── example.typ              # 示例简历文件
+├── typst.toml               # Typst 包配置
+├── README.md                # 中文使用说明
+├── README_en.md             # 英文使用说明
+└── LICENSE                  # 开源许可证（MIT）
 ```
 
 ## 使用方法
