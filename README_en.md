@@ -161,7 +161,7 @@ The workflow will automatically: install required fonts, compile the Typst docum
 
 ## Project Structure
 
-```
+```text
 .
 ├── .github
 │   └── workflows
@@ -281,8 +281,6 @@ Configuration is injected via `resume-doc` or `resume-init` / `get-config`.
 ### Option 1 (recommended): `resume-doc`
 
 ```typst
-#import "lib.typ": *
-
 #show: resume-doc.with(
   overrides: (
     colors: (primary: rgb(180, 0, 0)),
@@ -294,8 +292,6 @@ Configuration is injected via `resume-doc` or `resume-init` / `get-config`.
 ### Option 2: Manual init + read config
 
 ```typst
-#import "lib.typ": *
-
 #resume-init(
   overrides: (
     colors: (primary: rgb(180, 0, 0)),

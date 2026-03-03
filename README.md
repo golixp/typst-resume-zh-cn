@@ -145,7 +145,7 @@ git push origin v1.0.0
 
 ## 项目结构
 
-```
+```text
 .
 ├── .github
 │   └── workflows
@@ -265,8 +265,6 @@ git push origin v1.0.0
 ### 方式一：推荐 - 使用 `resume-doc`
 
 ```typst
-#import "lib.typ": *
-
 #show: resume-doc.with(
   overrides: (
     colors: (primary: rgb(180, 0, 0)),
@@ -278,8 +276,6 @@ git push origin v1.0.0
 ### 方式二：手动初始化 + 读取配置
 
 ```typst
-#import "lib.typ": *
-
 #resume-init(
   overrides: (
     colors: (primary: rgb(180, 0, 0)),
