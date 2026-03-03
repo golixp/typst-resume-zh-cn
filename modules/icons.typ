@@ -22,12 +22,18 @@
   linkedin: "\u{f08c}",        // 
   twitter: "\u{f099}",         // 
   website: "\u{f0ac}",         // 
-  
+  blog: "\u{ef36}",            // 
+  wechat: "\u{f1d7}",          // 
+  qq: "\u{f1d6}",              // 
+  zhihu: "\u{eeba}",           // 
+  weibo: "\u{f18a}",           // 
+
+
   // 教育类图标
   graduation: "\u{f19d}",      // 
   education: "\u{f51c}",       // 
   book: "\u{f02d}",            // 
-  school: "\u{f549}",          // 
+  school: "\u{ee12}",          // 
   university: "\u{f19c}",      // 
   
   // 工作类图标
@@ -67,7 +73,7 @@
   rust: "\u{e7a8}",            // 
   python: "\u{e73c}",          // 
   java: "\u{e256}",            // 
-  go: "\u{e626}",              // 
+  go: "\u{e65e}",              // 
   javascript: "\u{e74e}",      // 
   typescript: "\u{e628}",      // 
   html: "\u{e736}",            // 
@@ -76,7 +82,7 @@
   vue: "\u{e6a0}",             // 
   angular: "\u{e753}",         // 
   docker: "\u{f308}",          // 
-  kubernetes: "\u{f10c}",      // 
+  kubernetes: "\u{e81d}",      // 
   git: "\u{f1d3}",             // 
   linux: "\u{e712}",           // 
   
