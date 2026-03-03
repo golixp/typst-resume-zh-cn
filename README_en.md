@@ -242,7 +242,7 @@ Configuration is injected via `resume-doc` or `resume-init` / `get-config`.
 }
 ```
 
-### Configurable sections
+### Configurable sections (config.typ)
 
 | Option | Description |
 |--------|-------------|
