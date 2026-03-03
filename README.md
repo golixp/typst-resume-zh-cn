@@ -123,10 +123,7 @@ git push origin v1.0.0
 ### 导入模块
 
 ```typst
-#import "modules/config.typ": *
-#import "modules/icons.typ": icon, icon-label
-#import "modules/components.typ": *
-#import "modules/sections.typ": *
+#import "lib.typ": *
 ```
 
 ### 个人信息
@@ -209,24 +206,51 @@ git push origin v1.0.0
 
 ## 配置选项
 
-编辑 `modules/config.typ` 自定义样式：
+通过 `resume-doc` 或 `resume-init` / `get-config` 自定义样式。
+
+### 方式一：推荐 - 使用 `resume-doc`
+
+```typst
+#import "lib.typ": *
+
+#show: resume-doc.with(
+  overrides: (
+    colors: (primary: rgb(180, 0, 0)),
+    fonts: (main: "Source Han Sans SC"),
+  ),
+)
+```
+
+### 方式二：手动初始化 + 读取配置
+
+```typst
+#import "lib.typ": *
+
+#resume-init(
+  overrides: (
+    colors: (primary: rgb(180, 0, 0)),
+  ),
+)
+
+#context {
+  let cfg = get-config()
+  set page(margin: cfg.at("page-margins"))
+  set text(font: cfg.at("font-stack"), size: cfg.at("font-sizes").base)
+  set par(justify: cfg.at("style-features")["paragraph-justify"], leading: cfg.spacing.paragraph)
+}
+```
+
+### 可覆盖的配置段
 
 | 配置项 | 说明 |
 |--------|------|
-| `fonts` | 字体族定义 |
+| `fonts` | 字体族定义（main/mono/sc/nerd/nerd-mono/emoji） |
 | `colors` | 颜色配置（主题色、文本色等） |
 | `font-sizes` | 字号配置 |
 | `spacing` | 间距配置 |
 | `page-margins` | 页面边距 |
 | `style-features` | 样式开关（链接下划线、段落对齐等） |
 | `layout-defaults` | 布局参数（侧边栏宽度、列比例等） |
-
-### 自定义主题色
-
-```typst
-// 在 config.typ 中修改
-#let theme-color = rgb(38, 38, 125)  // 修改为你喜欢的颜色
-```
 
 ## 可用组件
 

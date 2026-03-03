@@ -125,10 +125,7 @@ The workflow will automatically: install required fonts, compile the Typst docum
 ### Import Modules
 
 ```typst
-#import "modules/config.typ": *
-#import "modules/icons.typ": icon, icon-label
-#import "modules/components.typ": *
-#import "modules/sections.typ": *
+#import "lib.typ": *
 ```
 
 ### Personal Information
@@ -211,24 +208,51 @@ The workflow will automatically: install required fonts, compile the Typst docum
 
 ## Configuration
 
-Edit `modules/config.typ` to customize styles:
+Configuration is injected via `resume-doc` or `resume-init` / `get-config`.
+
+### Option 1 (recommended): `resume-doc`
+
+```typst
+#import "lib.typ": *
+
+#show: resume-doc.with(
+  overrides: (
+    colors: (primary: rgb(180, 0, 0)),
+    fonts: (main: "Source Han Sans SC"),
+  ),
+)
+```
+
+### Option 2: Manual init + read config
+
+```typst
+#import "lib.typ": *
+
+#resume-init(
+  overrides: (
+    colors: (primary: rgb(180, 0, 0)),
+  ),
+)
+
+#context {
+  let cfg = get-config()
+  set page(margin: cfg.at("page-margins"))
+  set text(font: cfg.at("font-stack"), size: cfg.at("font-sizes").base)
+  set par(justify: cfg.at("style-features")["paragraph-justify"], leading: cfg.spacing.paragraph)
+}
+```
+
+### Configurable sections
 
 | Option | Description |
 |--------|-------------|
-| `fonts` | Font family definitions |
+| `fonts` | Font family definitions (main/mono/sc/nerd/nerd-mono/emoji) |
 | `colors` | Color palette (theme, text colors) |
 | `font-sizes` | Font size settings |
 | `spacing` | Spacing configuration |
 | `page-margins` | Page margins |
 | `style-features` | Style toggles (link underlines, justification) |
 | `layout-defaults` | Layout parameters (sidebar width, column ratios) |
-
-### Custom Theme Color
-
-```typst
-// Modify in config.typ
-#let theme-color = rgb(38, 38, 125)  // Change to your preferred color
-```
 
 ## Available Components
 

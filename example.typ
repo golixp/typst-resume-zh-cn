@@ -8,37 +8,19 @@
 // 模块导入 (Module Imports)
 // --------------------------------------------
 
-// 导入配置模块 - 包含字体、颜色、尺寸等配置
-#import "modules/config.typ": *
+// 导入库入口 - 提供配置 API + 图标 + 组件
+#import "lib.typ": *
 
-// 导入图标模块 - 提供 Nerdfont 图标支持
-#import "modules/icons.typ": icon, icon-label, tech-icon
+// ============================================
+// 导入页面配置 (Import Page Configuration)
+// ============================================
 
-// 导入基础组件模块 - 提供布局、列表、卡片等基础组件
-#import "modules/components.typ": *
-
-// 导入高级展示模块 - 提供简历专用组件
-#import "modules/sections.typ": *
-
-// --------------------------------------------
-// 页面设置 (Page Setup)
-// --------------------------------------------
-
-#set page(
-  paper: "a4",
-  margin: page-margins,
-)
-
-#set text(
-  font: font-stack,
-  size: font-sizes.base,
-  lang: "zh",
-  region: "cn",
-)
-
-#set par(
-  justify: style-features.paragraph-justify,
-  leading: spacing.paragraph,
+#show: resume-doc.with(
+  overrides: (
+    // 可以在此通过 overrides 覆盖配置，例如：
+    // colors: (primary: rgb(180, 0, 0)),
+    // fonts: (main: "Source Han Sans SC"),
+  ),
 )
 
 // ============================================
@@ -54,24 +36,24 @@
 // 可选：link 参数用于添加链接
 
 #personal-header(
-  "张三",  // 姓名
-  (
-    // 联系方式列表 - 每项包含图标和内容
-    (icon: "phone", content: "138-0000-0000"),
-    (icon: "email", content: "zhangsan@email.com"),
-    (icon: "location", content: "北京市"),
-    (icon: "github", content: "github.com/zhangsan", link: "https://github.com/zhangsan"),
-  ),
-  // 可选：添加照片
-  // photo: "photo.jpg",
-  // photo-width: 2.5cm,
-)
+    "张三",  // 姓名
+    (
+      // 联系方式列表 - 每项包含图标和内容
+      (icon: "phone", content: "138-0000-0000"),
+      (icon: "email", content: "zhangsan@email.com"),
+      (icon: "location", content: "北京市"),
+      (icon: "github", content: "github.com/zhangsan", link: "https://github.com/zhangsan"),
+    ),
+    // 可选：添加照片
+    // photo: "photo.jpg",
+    // photo-width: 2.5cm,
+  )
 
 // --------------------------------------------
 // 个人总结 (Personal Summary)
 // --------------------------------------------
 
-#section-header("个人总结", icon-name: "lightbulb")
+  #section-header("个人总结", icon-name: "lightbulb")
 
 // 方式一：段落形式的个人简介
 #summary-paragraph[
@@ -93,15 +75,15 @@
 #section-header("教育经历", icon-name: "graduation")
 
 // 使用 education-item 添加教育经历
-#education-item(
-  "2015.09 - 2019.06",   // 时间段
-  "某某大学",              // 学校名称
-  "本科",                  // 学位
-  "计算机科学与技术",        // 专业
-  gpa: "3.8/4.0",         // GPA（可选）
-  honors: ("优秀毕业生", "一等奖学金"),  // 荣誉（可选）
-  // description: [相关课程：数据结构、算法设计、操作系统、计算机网络],  // 描述（可选）
-)
+  #education-item(
+    "2015.09 - 2019.06",   // 时间段
+    "某某大学",              // 学校名称
+    "本科",                  // 学位
+    "计算机科学与技术",        // 专业
+    gpa: "3.8/4.0",         // GPA（可选）
+    honors: ("优秀毕业生", "一等奖学金"),  // 荣誉（可选）
+    // description: [相关课程：数据结构、算法设计、操作系统、计算机网络],  // 描述（可选）
+  )
 
 // 方式二：使用 education-list 批量添加（取消注释使用）
 // #education-list((
@@ -118,38 +100,38 @@
 // 工作经历 (Work Experience)
 // --------------------------------------------
 
-#section-header("工作经历", icon-name: "work")
+  #section-header("工作经历", icon-name: "work")
 
 // 方式一：使用 work-item 单独添加每项经历
-#work-item(
-  "2021.06 - 至今",      // 时间段
-  "某科技有限公司",        // 公司名称
-  "高级后端工程师",        // 职位
-  location: "北京",       // 地点（可选）
-  tech-stack: ("Go", "Python", "Kubernetes", "PostgreSQL"),  // 技术栈（可选）
-  responsibilities: (     // 工作职责
-    [负责核心交易系统的架构设计和开发，支撑日均百万级订单处理],
-    [主导微服务改造项目，将单体应用拆分为 15+ 个微服务],
-    [优化数据库查询性能，将核心接口响应时间从 200ms 降至 50ms],
-  ),
-  achievements: (         // 主要成就（可选）
-    [获得年度技术创新奖],
-    [晋升为技术组长，带领 5 人团队],
-  ),
-)
+  #work-item(
+    "2021.06 - 至今",      // 时间段
+    "某科技有限公司",        // 公司名称
+    "高级后端工程师",        // 职位
+    location: "北京",       // 地点（可选）
+    tech-stack: ("Go", "Python", "Kubernetes", "PostgreSQL"),  // 技术栈（可选）
+    responsibilities: (     // 工作职责
+      [负责核心交易系统的架构设计和开发，支撑日均百万级订单处理],
+      [主导微服务改造项目，将单体应用拆分为 15+ 个微服务],
+      [优化数据库查询性能，将核心接口响应时间从 200ms 降至 50ms],
+    ),
+    achievements: (         // 主要成就（可选）
+      [获得年度技术创新奖],
+      [晋升为技术组长，带领 5 人团队],
+    ),
+  )
 
-#work-item(
-  "2019.07 - 2021.05",
-  "某互联网公司",
-  "后端开发工程师",
-  location: "上海",
-  tech-stack: ("Java", "Spring Boot", "MySQL", "Redis"),
-  responsibilities: (
-    [参与电商平台后端服务开发，负责订单和支付模块],
-    [设计实现高并发秒杀系统，支持 10 万+ QPS],
-    [编写技术文档和单元测试，代码覆盖率达到 85%],
-  ),
-)
+  #work-item(
+    "2019.07 - 2021.05",
+    "某互联网公司",
+    "后端开发工程师",
+    location: "上海",
+    tech-stack: ("Java", "Spring Boot", "MySQL", "Redis"),
+    responsibilities: (
+      [参与电商平台后端服务开发，负责订单和支付模块],
+      [设计实现高并发秒杀系统，支持 10 万+ QPS],
+      [编写技术文档和单元测试，代码覆盖率达到 85%],
+    ),
+  )
 
 // 方式二：使用 work-list 批量添加经历（取消注释使用）
 // #work-list((
@@ -168,7 +150,7 @@
 // 项目经历 (Project Experience)
 // --------------------------------------------
 
-#section-header("项目经历", icon-name: "project")
+  #section-header("项目经历", icon-name: "project")
 
 // 使用 project-item 添加项目
 #project-item(
@@ -198,7 +180,7 @@
 // 专业技能 (Skills)
 // --------------------------------------------
 
-#section-header("专业技能", icon-name: "code")
+  #section-header("专业技能", icon-name: "code")
 
 // 方式一：使用 skill-category 分类展示技能
 #skill-category(
@@ -244,7 +226,7 @@
 // 获奖荣誉 (Awards)
 // --------------------------------------------
 
-#section-header("获奖荣誉", icon-name: "award")
+  #section-header("获奖荣誉", icon-name: "award")
 
 // 使用 award-item 添加奖项
 #award-item(

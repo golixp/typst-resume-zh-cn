@@ -1,10 +1,12 @@
 // ============================================
 // 高级展示模块 (Advanced Display Module)
 // ============================================
-// 本模块基于基础组件构建专门的简历段落模块
-// 包括工作经历、教育经历、技能、项目等专用展示组件
+// 基于基础组件构建专用简历段落模块：
+// - 章节标题、个人信息
+// - 教育 / 工作 / 技能 / 项目 / 总结 / 奖项
+// 所有样式均通过 get-config() 从 State 读取。
 
-#import "config.typ": *
+#import "config.typ": get-config
 #import "icons.typ": icon, icons
 #import "components.typ": sidebar, list-view, tag-list, date-text, tech-text, icon-link, styled-link
 
@@ -18,24 +20,30 @@
 /// 参数:
 ///   title: 章节标题文本
 ///   icon-name: 图标名称（可选）
-///   color: 标题颜色
+///   color: 标题颜色（默认主题色）
 ///   with-line: 是否显示下划线
 #let section-header(
   title,
   icon-name: none,
-  color: colors.primary,
+  color: auto,
   with-line: true,
-) = {
+) = context {
+  let cfg = get-config()
+  let actual-color = if color == auto { cfg.colors.primary } else { color }
+  let spacing = cfg.spacing
+  let sizes = cfg.at("font-sizes")
+  let features = cfg.at("style-features")
+
   v(spacing.section)
   
   let title-content = if icon-name != none {
     box({
-      icon(icon-name, color: color)
+      icon(icon-name, color: actual-color)
       h(0.3em)
-      text(fill: color, size: font-sizes.h2, weight: "bold", title)
+      text(fill: actual-color, size: sizes.h2, weight: "bold", title)
     })
   } else {
-    text(fill: color, size: font-sizes.h2, weight: "bold", title)
+    text(fill: actual-color, size: sizes.h2, weight: "bold", title)
   }
   
   if with-line {
@@ -43,7 +51,7 @@
       v(0.3em),
       title-content,
       v(0.6em),
-      line(length: 100%, stroke: style-features.heading-line-stroke + color),
+      line(length: 100%, stroke: features.at("heading-line-stroke") + actual-color),
       v(0.1em),
     )
   } else {
@@ -63,20 +71,23 @@
 ///   icon-name: 图标名称
 ///   content: 内容文本
 ///   link: 链接地址（可选）
-///   color: 颜色
+///   color: 颜色（默认主题色）
 #let info-item(
   icon-name,
   body-content,
   link-url: none,
-  color: colors.primary,
-) = {
+  color: auto,
+) = context {
+  let cfg = get-config()
+  let actual-color = if color == auto { cfg.colors.primary } else { color }
+
   box({
-    icon(icon-name, color: color)
+    icon(icon-name, color: actual-color)
     h(0.15em)
     if link-url != none {
-      styled-link(link-url, text-content: body-content, color: color)
+      styled-link(link-url, text-content: body-content, color: actual-color)
     } else {
-      text(fill: color, body-content)
+      text(fill: actual-color, body-content)
     }
   })
 }
@@ -86,18 +97,21 @@
 ///
 /// 参数:
 ///   items: 信息项数组，每项为字典 {icon, content, link?}
-///   color: 统一颜色
+///   color: 统一颜色（默认主题色）
 ///   separator: 分隔符
 #let info-group(
   items,
-  color: colors.primary,
+  color: auto,
   separator: [ · ],
-) = {
+) = context {
+  let cfg = get-config()
+  let actual-color = if color == auto { cfg.colors.primary } else { color }
+
   items.map(item => {
     let icon-name = item.at("icon")
     let content = item.at("content")
     let url = item.at("link", default: none)
-    info-item(icon-name, content, link-url: url, color: color)
+    info-item(icon-name, content, link-url: url, color: actual-color)
   }).join(h(0.5em) + separator + h(0.5em))
   
   v(0.5em)
@@ -116,13 +130,15 @@
   info-items,
   photo: none,
   photo-width: 0em,
-) = {
+) = context {
+  let cfg = get-config()
+
   grid(
     columns: (auto, 1fr, photo-width),
     gutter: (if photo != none { 1em } else { 0em }, 0em),
     {
       // 左侧信息区
-      text(size: font-sizes.h1, weight: "bold", name)
+      text(size: cfg.at("font-sizes").h1, weight: "bold", name)
       v(0.5em)
       info-group(info-items)
     },
@@ -156,25 +172,28 @@
   gpa: none,
   honors: (),
   description: none,
-) = {
+) = context {
+  let cfg = get-config()
+  let small = cfg.at("font-sizes").small
+
   sidebar(
     date-text(period),
     {
       strong(school)
       h(0.5em)
-      text(size: font-sizes.small, fill: colors.secondary, [\|])
+      text(size: small, fill: cfg.colors.secondary, [\|])
       h(0.5em)
       text(degree + [, ] + major)
       
       if gpa != none {
         h(0.5em)
-        text(size: font-sizes.small, fill: colors.secondary, [GPA: ] + gpa)
+        text(size: small, fill: cfg.colors.secondary, [GPA: ] + gpa)
       }
       
       if honors.len() > 0 {
         v(0.3em)
-        text(size: font-sizes.small, [
-          #icon("award", color: colors.secondary, size: 0.9em)
+        text(size: small, [
+          #icon("award", color: cfg.colors.secondary, size: 0.9em)
           #honors.join([, ])
         ])
       }
@@ -185,7 +204,7 @@
       }
     },
   )
-  v(spacing.list-item)
+  v(cfg.spacing.at("list-item"))
 }
 
 /// 教育经历列表
@@ -230,17 +249,20 @@
   responsibilities: (),
   achievements: (),
   tech-stack: (),
-) = {
+) = context {
+  let cfg = get-config()
+  let small = cfg.at("font-sizes").small
+
   sidebar(
     date-text(period),
     {
       strong(company)
       if location != none {
         h(0.5em)
-        text(size: font-sizes.small, fill: colors.secondary, [\(] + location + [\)])
+        text(size: small, fill: cfg.colors.secondary, [\(] + location + [\)])
       }
       v(0.15em)
-      text(fill: colors.primary, weight: "medium", position)
+      text(fill: cfg.colors.primary, weight: "medium", position)
       
       if tech-stack.len() > 0 {
         v(0.3em)
@@ -254,12 +276,12 @@
       
       if achievements.len() > 0 {
         v(0.3em)
-        text(size: font-sizes.small, fill: colors.secondary, [主要成就：])
+        text(size: small, fill: cfg.colors.secondary, [主要成就：])
         list-view(achievements)
       }
     },
   )
-  v(spacing.list-item)
+  v(cfg.spacing.at("list-item"))
 }
 
 /// 工作经历列表
@@ -296,7 +318,10 @@
   category,
   skills,
   level: none,
-) = {
+) = context {
+  let cfg = get-config()
+  let small = cfg.at("font-sizes").small
+
   grid(
     columns: (20%, 1fr),
     column-gutter: 0.5em,
@@ -312,11 +337,11 @@
       }
       if level != none {
         h(0.5em)
-        text(size: font-sizes.small, fill: colors.secondary, [\(] + level + [\)])
+        text(size: small, fill: cfg.colors.secondary, [\(] + level + [\)])
       }
     },
   )
-  v(spacing.list-item)
+  v(cfg.spacing.at("list-item"))
 }
 
 /// 技能列表
@@ -343,7 +368,10 @@
 #let skill-cloud(
   skills,
   columns: 2,
-) = {
+) = context {
+  let cfg = get-config()
+  let xsmall = cfg.at("font-sizes").xsmall
+
   grid(
     columns: (1fr,) * columns,
     column-gutter: 1em,
@@ -351,13 +379,13 @@
     ..skills.map(skill => {
       box({
         if "icon" in skill {
-          icon(skill.icon, color: colors.primary, size: 0.9em)
+          icon(skill.icon, color: cfg.colors.primary, size: 0.9em)
           h(0.3em)
         }
         skill.name
         if "level" in skill {
           h(0.3em)
-          text(size: font-sizes.xsmall, fill: colors.secondary, skill.level)
+          text(size: xsmall, fill: cfg.colors.secondary, skill.level)
         }
       })
     })
@@ -385,19 +413,22 @@
   responsibilities: (),
   link: none,
   period: none,
-) = {
+) = context {
+  let cfg = get-config()
+  let small = cfg.at("font-sizes").small
+
   v(0.3em)
   
   // 项目名称行
   box({
     if link != none {
-      icon-link(link, "link", name, color: colors.primary)
+      icon-link(link, "link", name, color: cfg.colors.primary)
     } else {
       strong(name)
     }
     if period != none {
       h(1fr)
-      text(size: font-sizes.small, fill: colors.secondary, date-text(period))
+      text(size: small, fill: cfg.colors.secondary, date-text(period))
     }
   })
   
@@ -417,7 +448,7 @@
     list-view(responsibilities)
   }
   
-  v(spacing.list-item)
+  v(cfg.spacing.at("list-item"))
 }
 
 /// 项目经历列表
@@ -451,11 +482,13 @@
 #let summary-list(
   items,
   icon-name: "check",
-) = {
+) = context {
+  let cfg = get-config()
+
   list-view(
     items.map(item => {
       box({
-        icon(icon-name, color: colors.primary, size: 0.9em)
+        icon(icon-name, color: cfg.colors.primary, size: 0.9em)
         h(0.3em)
         item
       })
@@ -490,28 +523,31 @@
   date,
   issuer: none,
   description: none,
-) = {
+) = context {
+  let cfg = get-config()
+  let small = cfg.at("font-sizes").small
+
   grid(
     columns: (1fr, auto),
     column-gutter: 1em,
     {
       box({
-        icon("award", color: colors.primary, size: 0.9em)
+        icon("award", color: cfg.colors.primary, size: 0.9em)
         h(0.3em)
         strong(name)
       })
       if issuer != none {
         v(0.1em)
-        text(size: font-sizes.small, fill: colors.secondary, issuer)
+        text(size: small, fill: cfg.colors.secondary, issuer)
       }
       if description != none {
         v(0.2em)
-        text(size: font-sizes.small, description)
+        text(size: small, description)
       }
     },
-    align(right, text(size: font-sizes.small, fill: colors.secondary, date)),
+    align(right, text(size: small, fill: cfg.colors.secondary, date)),
   )
-  v(spacing.list-item)
+  v(cfg.spacing.at("list-item"))
 }
 
 /// 奖项列表
@@ -573,3 +609,4 @@
   award-item: award-item,
   award-list: award-list,
 )
+

@@ -1,10 +1,10 @@
 // ============================================
 // 基础组件模块 (Base Components Module)
 // ============================================
-// 本模块提供通用的基础布局组件，包括列表、布局、卡片等
-// 所有组件都支持高度自定义配置
+// 通用布局/列表/卡片/文本/链接组件。
+// 所有与样式相关的默认值均通过 get-config() 从 State 读取。
 
-#import "config.typ": *
+#import "config.typ": get-config
 #import "icons.typ": icon
 
 // --------------------------------------------
@@ -17,15 +17,20 @@
 /// 参数:
 ///   items: 列表项内容数组
 ///   marker: 列表标记符号，默认为配置中的 list-marker
-///   spacing: 列表项间距
+///   spacing: 列表项间距，默认为配置中的 spacing.list-item
 ///   indent: 缩进量
 #let list-view(
   items,
-  marker: style-features.list-marker,
-  spacing: spacing.list-item,
+  marker: auto,
+  spacing: auto,
   indent: 0em,
-) = {
-  set list(marker: marker, spacing: spacing)
+) = context {
+  let cfg = get-config()
+  let features = cfg.at("style-features")
+  let actual-marker = if marker == auto { features.list-marker } else { marker }
+  let actual-spacing = if spacing == auto { cfg.spacing.at("list-item") } else { spacing }
+
+  set list(marker: actual-marker, spacing: actual-spacing)
   pad(left: indent, list(..items))
 }
 
@@ -42,7 +47,9 @@
   label-width: 20%,
   gap: 0.5em,
   label-style: (it) => strong(it),
-) = {
+) = context {
+  let cfg = get-config()
+
   let entries = if type(items) == dictionary {
     items.pairs()
   } else {
@@ -56,7 +63,7 @@
       align(left + top, label-style(key)),
       align(left + top, value),
     )
-    v(spacing.list-item)
+    v(cfg.spacing.at("list-item"))
   }
 }
 
@@ -65,26 +72,34 @@
 ///
 /// 参数:
 ///   items: 标签内容数组
-///   color: 标签颜色
-///   bg-color: 背景色
-///   radius: 圆角
+///   color: 标签颜色（默认主题色）
+///   bg-color: 背景色（默认卡片背景色）
+///   radius: 圆角（默认卡片圆角）
 ///   padding: 内边距
 ///   gap: 标签间距
 #let tag-list(
   items,
-  color: colors.primary,
-  bg-color: colors.background,
-  radius: layout-defaults.card-radius,
+  color: auto,
+  bg-color: auto,
+  radius: auto,
   padding: (x: 0.4em, y: 0.15em),
   gap: 0.3em,
-) = {
+) = context {
+  let cfg = get-config()
+  let layout = cfg.at("layout-defaults")
+  let sizes = cfg.at("font-sizes")
+
+  let actual-color = if color == auto { cfg.colors.primary } else { color }
+  let actual-bg = if bg-color == auto { cfg.colors.background } else { bg-color }
+  let actual-radius = if radius == auto { layout.card-radius } else { radius }
+
   h(0.1em)
   for item in items {
     box(
-      fill: bg-color,
-      radius: radius,
+      fill: actual-bg,
+      radius: actual-radius,
       inset: padding,
-      text(size: font-sizes.small, fill: color, item)
+      text(size: sizes.small, fill: actual-color, item),
     )
     h(gap)
   }
@@ -100,20 +115,24 @@
 /// 参数:
 ///   left: 左侧内容
 ///   right: 右侧内容
-///   ratio: 列宽比例，默认为 (1fr, 1fr)
+///   ratio: 列宽比例，默认为配置中的 two-col-ratio
 ///   gutter: 列间距
 ///   align-left: 左侧对齐方式
 ///   align-right: 右侧对齐方式
 #let two-col(
   left,
   right,
-  ratio: layout-defaults.two-col-ratio,
+  ratio: auto,
   gutter: 1em,
   align-left: left,
   align-right: left,
-) = {
+) = context {
+  let cfg = get-config()
+  let layout = cfg.at("layout-defaults")
+  let actual-ratio = if ratio == auto { layout.two-col-ratio } else { ratio }
+
   grid(
-    columns: ratio,
+    columns: actual-ratio,
     column-gutter: gutter,
     align(align-left, left),
     align(align-right, right),
@@ -127,17 +146,21 @@
 ///   left: 左侧内容
 ///   center: 中间内容
 ///   right: 右侧内容
-///   ratio: 列宽比例
+///   ratio: 列宽比例（默认为配置中的 three-col-ratio）
 ///   gutter: 列间距
 #let three-col(
   left,
   center,
   right,
-  ratio: layout-defaults.three-col-ratio,
+  ratio: auto,
   gutter: 1em,
-) = {
+) = context {
+  let cfg = get-config()
+  let layout = cfg.at("layout-defaults")
+  let actual-ratio = if ratio == auto { layout.three-col-ratio } else { ratio }
+
   grid(
-    columns: ratio,
+    columns: actual-ratio,
     column-gutter: gutter,
     left, center, right,
   )
@@ -150,25 +173,32 @@
 ///   side: 侧边栏内容
 ///   content: 主内容
 ///   with-line: 是否显示分割线
-///   side-width: 侧边栏宽度
-///   line-color: 分割线颜色
-///   line-stroke: 分割线粗细
+///   side-width: 侧边栏宽度（默认配置中的 sidebar-width）
+///   line-color: 分割线颜色（默认主题色）
+///   line-stroke: 分割线粗细（默认时间轴线条粗细）
 ///   gap: 内容间距
 #let sidebar(
   side,
   content,
   with-line: true,
-  side-width: layout-defaults.sidebar-width,
-  line-color: colors.primary,
-  line-stroke: layout-defaults.timeline-stroke,
+  side-width: auto,
+  line-color: auto,
+  line-stroke: auto,
   gap: 0.75em,
 ) = context {
+  let cfg = get-config()
+  let layout = cfg.at("layout-defaults")
+
+  let actual-side-width = if side-width == auto { layout.sidebar-width } else { side-width }
+  let actual-line-color = if line-color == auto { cfg.colors.primary } else { line-color }
+  let actual-line-stroke = if line-stroke == auto { layout.timeline-stroke } else { line-stroke }
+
   let side-size = measure(side)
   let content-size = measure(content)
   let height = calc.max(side-size.height, content-size.height) + 0.5em
   
   grid(
-    columns: (side-width, if with-line { 0% } else { 0pt }, 1fr),
+    columns: (actual-side-width, if with-line { 0% } else { 0pt }, 1fr),
     column-gutter: gap,
     {
       set align(right + top)
@@ -177,7 +207,7 @@
       v(0.25em)
     },
     if with-line {
-      line(end: (0em, height), stroke: line-stroke + line-color)
+      line(end: (0em, height), stroke: actual-line-stroke + actual-line-color)
     },
     {
       v(0.25em)
@@ -191,15 +221,17 @@
 /// 带颜色的分隔线
 ///
 /// 参数:
-///   color: 线条颜色
+///   color: 线条颜色（默认边框色）
 ///   stroke: 线条粗细
 ///   length: 线条长度
 #let divider(
-  color: colors.border,
+  color: auto,
   stroke: 0.05em,
   length: 100%,
-) = {
-  line(length: length, stroke: stroke + color)
+) = context {
+  let cfg = get-config()
+  let actual-color = if color == auto { cfg.colors.border } else { color }
+  line(length: length, stroke: stroke + actual-color)
 }
 
 /// 垂直间距
@@ -225,25 +257,32 @@
 ///
 /// 参数:
 ///   content: 卡片内容
-///   fill: 背景填充色
+///   fill: 背景填充色（默认背景色）
 ///   stroke: 边框样式
-///   radius: 圆角半径
-///   padding: 内边距
+///   radius: 圆角半径（默认卡片圆角）
+///   padding: 内边距（默认卡片内边距）
 ///   width: 宽度
 #let card(
   content,
-  fill: colors.background,
+  fill: auto,
   stroke: none,
-  radius: layout-defaults.card-radius,
-  padding: layout-defaults.card-padding,
+  radius: auto,
+  padding: auto,
   width: 100%,
-) = {
+) = context {
+  let cfg = get-config()
+  let layout = cfg.at("layout-defaults")
+
+  let actual-fill = if fill == auto { cfg.colors.background } else { fill }
+  let actual-radius = if radius == auto { layout.card-radius } else { radius }
+  let actual-padding = if padding == auto { layout.card-padding } else { padding }
+
   box(
     width: width,
-    fill: fill,
+    fill: actual-fill,
     stroke: stroke,
-    radius: radius,
-    inset: padding,
+    radius: actual-radius,
+    inset: actual-padding,
     content,
   )
 }
@@ -253,20 +292,23 @@
 ///
 /// 参数:
 ///   content: 卡片内容
-///   border-color: 边框颜色
+///   border-color: 边框颜色（默认边框色）
 ///   border-width: 边框宽度
 ///   ...其他参数同 card
 #let bordered-card(
   content,
-  border-color: colors.border,
+  border-color: auto,
   border-width: 0.05em,
   fill: none,
   ..args,
-) = {
+) = context {
+  let cfg = get-config()
+  let actual-border-color = if border-color == auto { cfg.colors.border } else { border-color }
+
   card(
     content,
     fill: fill,
-    stroke: border-width + border-color,
+    stroke: border-width + actual-border-color,
     ..args,
   )
 }
@@ -278,20 +320,23 @@
 ///   title: 卡片标题
 ///   content: 卡片内容
 ///   icon-name: 图标名称（可选）
-///   icon-color: 图标颜色
+///   icon-color: 图标颜色（默认主题色）
 #let info-card(
   title,
   content,
   icon-name: none,
-  icon-color: colors.primary,
+  icon-color: auto,
   ..args,
-) = {
+) = context {
+  let cfg = get-config()
+  let actual-icon-color = if icon-color == auto { cfg.colors.primary } else { icon-color }
+
   card({
     if icon-name != none {
       grid(
         columns: (auto, 1fr),
         column-gutter: 0.5em,
-        align(top, icon(icon-name, color: icon-color)),
+        align(top, icon(icon-name, color: actual-icon-color)),
         {
           strong(title)
           v(0.3em)
@@ -319,24 +364,31 @@
 ///   subtitle: 副标题（可选）
 ///   description: 描述内容（可选）
 ///   tags: 标签数组（可选）
-///   line-color: 时间线颜色
-///   dot-color: 圆点颜色
+///   line-color: 时间线颜色（默认主题色）
+///   dot-color: 圆点颜色（默认主题色）
 #let timeline-item(
   period,
   title,
   subtitle: none,
   description: none,
   tags: (),
-  line-color: colors.primary,
-  dot-color: colors.primary,
-) = {
+  line-color: auto,
+  dot-color: auto,
+) = context {
+  let cfg = get-config()
+  let sizes = cfg.at("font-sizes")
+
+  let actual-line-color = if line-color == auto { cfg.colors.primary } else { line-color }
+  let actual-dot-color = if dot-color == auto { cfg.colors.primary } else { dot-color }
+  let small-size = sizes.small
+
   grid(
     columns: (18%, 1fr),
     column-gutter: 1em,
     {
       // 左侧时间
       set align(right + top)
-      text(size: font-sizes.small, fill: colors.secondary, period)
+      text(size: small-size, fill: cfg.colors.secondary, period)
     },
     {
       // 右侧内容
@@ -349,7 +401,7 @@
             width: 0.5em,
             height: 0.5em,
             radius: 50%,
-            fill: dot-color,
+            fill: actual-dot-color,
           )
         },
         {
@@ -357,7 +409,7 @@
           strong(title)
           if subtitle != none {
             h(0.5em)
-            text(size: font-sizes.small, fill: colors.secondary, subtitle)
+            text(size: small-size, fill: cfg.colors.secondary, subtitle)
           }
           if description != none {
             v(0.3em)
@@ -365,13 +417,13 @@
           }
           if tags.len() > 0 {
             v(0.3em)
-            tag-list(tags, color: colors.primary)
+            tag-list(tags, color: cfg.colors.primary)
           }
         },
       )
     },
   )
-  v(spacing.list-item)
+  v(cfg.spacing.at("list-item"))
 }
 
 /// 时间轴容器
@@ -406,10 +458,15 @@
 ///   size: 字号，默认为 small
 #let date-text(
   content,
-  color: colors.secondary,
-  size: font-sizes.small,
-) = {
-  text(fill: color, size: size, content)
+  color: auto,
+  size: auto,
+) = context {
+  let cfg = get-config()
+  let sizes = cfg.at("font-sizes")
+  let default-size = sizes.small
+  let actual-size = if size == auto { default-size } else { size }
+  let actual-color = if color == auto { cfg.colors.secondary } else { color }
+  text(fill: actual-color, size: actual-size, content)
 }
 
 /// 标签文本
@@ -417,14 +474,16 @@
 ///
 /// 参数:
 ///   content: 标签内容
-///   color: 文本颜色
+///   color: 文本颜色（默认主题色）
 ///   weight: 字重
 #let label-text(
   content,
-  color: colors.primary,
+  color: auto,
   weight: "regular",
-) = {
-  text(fill: color, weight: weight, content)
+) = context {
+  let cfg = get-config()
+  let actual-color = if color == auto { cfg.colors.primary } else { color }
+  text(fill: actual-color, weight: weight, content)
 }
 
 /// 技术栈文本
@@ -441,12 +500,14 @@
 ///
 /// 参数:
 ///   content: 文本内容
-///   color: 强调色
+///   color: 强调色（默认主题色）
 #let highlight-text(
   content,
-  color: colors.primary,
-) = {
-  text(fill: color, weight: "bold", content)
+  color: auto,
+) = context {
+  let cfg = get-config()
+  let actual-color = if color == auto { cfg.colors.primary } else { color }
+  text(fill: actual-color, weight: "bold", content)
 }
 
 // --------------------------------------------
@@ -459,14 +520,16 @@
 /// 参数:
 ///   url: 链接地址
 ///   text: 显示文本（可选，默认为URL）
-///   color: 链接颜色
+///   color: 链接颜色（默认主题色）
 #let styled-link(
   url,
   text-content: none,
-  color: colors.primary,
-) = {
+  color: auto,
+) = context {
+  let cfg = get-config()
+  let actual-color = if color == auto { cfg.colors.primary } else { color }
   let display-text = if text-content == none { url } else { text-content }
-  link(url, text(fill: color, display-text))
+  link(url, text(fill: actual-color, display-text))
 }
 
 /// 带图标的链接
@@ -476,17 +539,20 @@
 ///   url: 链接地址
 ///   icon-name: 图标名称
 ///   text: 显示文本
-///   color: 颜色
+///   color: 颜色（默认主题色）
 #let icon-link(
   url,
   icon-name,
   text-content,
-  color: colors.primary,
-) = {
+  color: auto,
+) = context {
+  let cfg = get-config()
+  let actual-color = if color == auto { cfg.colors.primary } else { color }
+
   box({
-    icon(icon-name, color: color)
+    icon(icon-name, color: actual-color)
     h(0.3em)
-    link(url, text(fill: color, text-content))
+    link(url, text(fill: actual-color, text-content))
   })
 }
 
