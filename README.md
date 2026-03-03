@@ -21,18 +21,43 @@
 git clone https://github.com/golixp/typst-resume-zh-cn.git
 ```
 
-### 通过 Git Subtree 集成到已有仓库
+### 通过 Typst Packages
 
-#### 首次引入
-
-```bash
-git subtree add --prefix=resume-zh-cn https://github.com/golixp/typst-resume-zh-cn.git master --squash
+```typst
+// 远程包导入
+#import "@preview/resume-zh-cn:0.1.0": *
 ```
 
-#### 拉取更新
+### 通过 Typst Local Packages
+
+#### 创建包
+
+Linux:
 
 ```bash
-git subtree pull --prefix=resume-zh-cn https://github.com/golixp/typst-resume-zh-cn.git master --squash
+mkdir -p ~/.local/share/typst/packages/local/resume-zh-cn/
+git clone https://github.com/golixp/typst-resume-zh-cn.git ~/.local/share/typst/packages/local/resume-zh-cn/0.1.0
+```
+
+macOS:
+
+```zsh
+mkdir -p "~/Library/Application Support/typst/packages/local/resume-zh-cn/"
+git clone https://github.com/golixp/typst-resume-zh-cn.git ~/Library/Application\ Support/typst/packages/local/resume-zh-cn/0.1.0
+```
+
+Windows:
+
+```powershell
+mkdir -Force "$env:APPDATA\typst\packages\local\resume-zh-cn\0.1.0"
+git clone https://github.com/golixp/typst-resume-zh-cn.git "$env:APPDATA\typst\packages\local\resume-zh-cn\0.1.0"
+```
+
+#### 导入包
+
+```typst
+// 本地包导入
+#import "@local/resume-zh-cn:0.1.0": *
 ```
 
 ### 前置要求

@@ -23,6 +23,45 @@ A modular resume template built with [Typst](https://typst.app/), optimized for 
 git clone https://github.com/golixp/typst-resume-zh-cn.git
 ```
 
+### Using Typst Packages
+
+```typst
+// Remote package import
+#import "@preview/resume-zh-cn:0.1.0": *
+```
+
+### Using Typst Local Packages
+
+#### Create Local Package
+
+Linux:
+
+```bash
+mkdir -p ~/.local/share/typst/packages/local/resume-zh-cn/
+git clone https://github.com/golixp/typst-resume-zh-cn.git ~/.local/share/typst/packages/local/resume-zh-cn/0.1.0
+```
+
+macOS:
+
+```zsh
+mkdir -p "~/Library/Application Support/typst/packages/local/resume-zh-cn/"
+git clone https://github.com/golixp/typst-resume-zh-cn.git ~/Library/Application\ Support/typst/packages/local/resume-zh-cn/0.1.0
+```
+
+Windows:
+
+```powershell
+mkdir -Force "$env:APPDATA\typst\packages\local\resume-zh-cn\0.1.0"
+git clone https://github.com/golixp/typst-resume-zh-cn.git "$env:APPDATA\typst\packages\local\resume-zh-cn\0.1.0"
+```
+
+#### Import Local Package
+
+```typst
+// Local package import
+#import "@local/resume-zh-cn:0.1.0": *
+```
+
 ### Integrate via Git Subtree
 
 #### Initial Setup
