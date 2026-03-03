@@ -170,7 +170,14 @@ git push origin v1.0.0
 ### 导入模块
 
 ```typst
-#import "lib.typ": *
+// 远程包导入
+#import "@preview/resume-zh-cn:0.1.0": *
+
+// 本地包导入
+// #import "@local/resume-zh-cn:0.1.0": *
+
+// 本地文件导入
+// #import "lib.typ": *
 ```
 
 ### 个人信息

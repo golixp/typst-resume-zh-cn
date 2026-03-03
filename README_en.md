@@ -186,7 +186,14 @@ The workflow will automatically: install required fonts, compile the Typst docum
 ### Import Modules
 
 ```typst
-#import "lib.typ": *
+// Typst Packages
+#import "@preview/resume-zh-cn:0.1.0": *
+
+// Typst Local Packages
+// #import "@local/resume-zh-cn:0.1.0": *
+
+// Local File
+// #import "lib.typ": *
 ```
 
 ### Personal Information
