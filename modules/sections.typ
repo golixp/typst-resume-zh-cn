@@ -215,10 +215,10 @@
 #let education-list(items) = {
   for item in items {
     education-item(
-      period: item.at("period"),
-      school: item.at("school"),
-      degree: item.at("degree"),
-      major: item.at("major"),
+      item.at("period"),
+      item.at("school"),
+      item.at("degree"),
+      item.at("major"),
       gpa: item.at("gpa", default: none),
       honors: item.at("honors", default: ()),
       description: item.at("description", default: none),
@@ -292,9 +292,9 @@
 #let work-list(items) = {
   for item in items {
     work-item(
-      period: item.at("period"),
-      company: item.at("company"),
-      position: item.at("position"),
+      item.at("period"),
+      item.at("company"),
+      item.at("position"),
       location: item.at("location", default: none),
       responsibilities: item.at("responsibilities", default: ()),
       achievements: item.at("achievements", default: ()),
@@ -352,8 +352,8 @@
 #let skill-list(categories) = {
   for cat in categories {
     skill-category(
-      category: cat.at("category"),
-      skills: cat.at("skills"),
+      cat.at("category"),
+      cat.at("skills"),
       level: cat.at("level", default: none),
     )
   }
@@ -459,9 +459,9 @@
 #let project-list(items) = {
   for item in items {
     project-item(
-      name: item.at("name"),
-      tech-stack: item.at("tech-stack"),
-      description: item.at("description"),
+      item.at("name"),
+      item.at("tech-stack"),
+      item.at("description"),
       responsibilities: item.at("responsibilities", default: ()),
       link: item.at("link", default: none),
       period: item.at("period", default: none),
@@ -555,8 +555,8 @@
 #let award-list(items) = {
   for item in items {
     award-item(
-      name: item.at("name"),
-      date: item.at("date"),
+      item.at("name"),
+      item.at("date"),
       issuer: item.at("issuer", default: none),
       description: item.at("description", default: none),
     )
