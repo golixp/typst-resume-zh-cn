@@ -238,7 +238,7 @@
 ///   company: 公司名称
 ///   position: 职位
 ///   location: 地点（可选）
-///   responsibilities: 职责列表
+///   responsibilities: 职责列表（可选）
 ///   achievements: 成就列表（可选）
 ///   tech-stack: 技术栈（可选）
 #let work-item(
