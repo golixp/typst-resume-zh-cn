@@ -435,7 +435,7 @@
   v(0.15em)
   
   // 技术栈
-  tech-text(tech-stack.join([ \u{2F} ]))
+  tag-list(tech-stack)
   
   v(0.3em)
   
