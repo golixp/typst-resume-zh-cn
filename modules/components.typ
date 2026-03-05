@@ -436,8 +436,8 @@
 ) = {
   for item in items {
     timeline-item(
-      period: item.at("period", default: ""),
-      title: item.at("title", default: ""),
+      item.at("period", default: ""),
+      item.at("title", default: ""),
       subtitle: item.at("subtitle", default: none),
       description: item.at("description", default: none),
       tags: item.at("tags", default: ()),
