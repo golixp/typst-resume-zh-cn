@@ -75,7 +75,7 @@ git clone https://github.com/golixp/typst-resume-zh-cn.git "$env:APPDATA\typst\p
 
 ### 前置要求
 
-- [Typst](https://typst.app/) >= 0.11.0
+- [Typst](https://typst.app/) >= 0.14.0
 - 字体：Noto Sans、Noto Sans CJK SC、Symbols Nerd Font
 
 ### 编译

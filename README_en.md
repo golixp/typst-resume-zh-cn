@@ -77,7 +77,7 @@ git clone https://github.com/golixp/typst-resume-zh-cn.git "$env:APPDATA\typst\p
 
 ### Prerequisites
 
-- [Typst](https://typst.app/) >= 0.11.0
+- [Typst](https://typst.app/) >= 0.14.0
 - Fonts: Noto Sans, Noto Sans CJK SC, Symbols Nerd Font
 
 ### Compile
