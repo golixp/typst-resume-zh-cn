@@ -6,7 +6,7 @@
 // - 教育 / 工作 / 技能 / 项目 / 总结 / 奖项
 // 所有样式均通过 get-config() 从 State 读取。
 
-#import "config.typ": get-config
+#import "config.typ": get-config, with-config
 #import "icons.typ": icon, icons
 #import "components.typ": sidebar, list-view, tag-list, date-text, tech-text, icon-link, styled-link
 
@@ -484,15 +484,12 @@
   icon-name: "check",
 ) = context {
   let cfg = get-config()
-
-  list-view(
-    items.map(item => {
-      box({
-        icon(icon-name, color: cfg.colors.primary, size: 0.9em)
-        h(0.3em)
-        item
-      })
-    })
+  
+  with-config(
+    overrides: (
+      style-features: (list-marker: [#icon(icon-name, color: cfg.colors.primary, size: 0.9em)]),
+    ),
+    list-view(items),
   )
 }
 
