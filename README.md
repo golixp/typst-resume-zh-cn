@@ -90,7 +90,16 @@ typst compile example.typ
 
 ### 配置
 
-编辑 `.github/workflows/release.yml`，将 `TYPST_SOURCE` 环境变量设置为目标 Typst 源文件名称（不含 `.typ` 扩展名）：
+GitHub Actions 仅识别仓库根目录下 `.github/workflows/` 中的工作流文件，因此必须将工作流文件复制到正确位置。
+
+将本项目的 `.github/workflows/release.yml` 复制到你的仓库对应目录：
+
+```bash
+mkdir -p .github/workflows
+cp <仓库目录>/.github/workflows/release.yml .github/workflows/release.yml
+```
+
+然后根据简历源文件的实际位置调整 `TYPST_SOURCE`。编辑 `.github/workflows/release.yml`，将 `TYPST_SOURCE` 环境变量设置为目标 Typst 源文件名称（不含 `.typ` 扩展名）：
 
 ```yaml
 env:
@@ -103,32 +112,6 @@ env:
 env:
   TYPST_SOURCE: docs/resume  # 对应 docs/resume.typ
 ```
-
-### 在已有仓库中配置
-
-如果你通过文件复制或 Git Subtree 等方式将本模板集成到已有仓库，需要手动配置工作流。GitHub Actions 仅识别仓库根目录下 `.github/workflows/` 中的工作流文件，因此必须将工作流文件复制到正确位置。
-
-#### 直接复制文件集成
-
-将本项目的 `.github/workflows/release.yml` 复制到你的仓库对应目录：
-
-```bash
-mkdir -p .github/workflows
-cp <仓库目录>/.github/workflows/release.yml .github/workflows/release.yml
-```
-
-#### Git Subtree 集成
-
-通过 Git Subtree 引入的文件位于指定前缀目录下（如 `resume-zh-cn/`），其中包含的 `.github/` 目录不会被 GitHub Actions 识别。需将工作流文件手动复制到仓库根目录：
-
-```bash
-mkdir -p .github/workflows
-cp resume-zh-cn/.github/workflows/release.yml .github/workflows/release.yml
-```
-
-然后根据简历源文件的实际位置调整 `TYPST_SOURCE`。
-
-> **提示**：无论使用哪种集成方式，`TYPST_SOURCE` 的值始终为简历源文件相对于仓库根目录的路径，不含 `.typ` 扩展名。
 
 ### 触发发布
 
