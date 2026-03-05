@@ -431,7 +431,7 @@
 ///   name: 项目名称
 ///   tech-stack: 技术栈
 ///   description: 项目描述
-///   responsibilities: 职责/贡献列表
+///   responsibilities: 职责/贡献列表（可选）
 ///   link: 项目链接（可选）
 ///   period: 时间段（可选）
 #let project-item(
