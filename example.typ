@@ -196,8 +196,9 @@
 // 方式一：使用 skill-category 分类展示技能
 #skill-category(
   "编程语言", // 分类名称
-  ("Go", "Python", "Java", "JavaScript", "TypeScript"), // 技能列表
-  level: "精通", // 熟练度（可选）
+  ("Go", "Python", "Java", "TypeScript"), // 技能列表数组
+  level: ("精通", "熟练", none, ""), // 可选: 熟练度数组 (none/"" 表示不显示图
+  icon-names: ("go", "python", none, ""), // 可选: 图标名称数组 (none/"" 表示不显示图标)
 )
 
 #skill-category(
@@ -222,8 +223,16 @@
 
 // 方式二：使用 skill-list 批量添加（取消注释使用）
 // #skill-list((
-//   (category: "编程语言", skills: ("Go", "Python", "Java"), level: "精通"),
-//   (category: "后端技术", skills: ("Spring Boot", "Gin")),
+//   (
+//     category: "编程语言",
+//     skills: ("Go", "Python", "Java"),
+//     level: ("精通", none, ""),
+//     icon-names: ("go", none, ""),
+//   ),
+//   (
+//     category: "后端技术",
+//     skills: ("Spring Boot", "Gin"),
+//   ),
 // ))
 
 // 方式三：使用 skill-cloud 标签云展示（取消注释使用）

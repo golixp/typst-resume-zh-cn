@@ -312,16 +312,18 @@
 ///
 /// 参数:
 ///   category: 分类名称
-///   skills: 技能列表
-///   level: 熟练度（可选）
+///   skills: 技能列表数组
+///   level: 熟练度数组（可选，与 skills 对齐）
+///   icon-names: 图标名称数组（可选，与 skills 对齐）
 #let skill-category(
   category,
   skills,
-  level: none,
+  level: (),
+  icon-names: (),
 ) = context {
   let cfg = get-config()
   let small = cfg.at("font-sizes").small
-
+  
   grid(
     columns: (20%, 1fr),
     column-gutter: 0.5em,
@@ -330,15 +332,36 @@
       text(weight: "bold", category)
     },
     {
-      if type(skills) == array {
-        skills.join([, ])
-      } else {
-        skills
+      let items = ()
+      for i in range(0, skills.len()) {
+        let skill = skills.at(i)
+        let icon_name = if i < icon-names.len() {
+          icon-names.at(i)
+        } else {
+          none
+        }
+        let item_level = if i < level.len() {
+          level.at(i)
+        } else {
+          none
+        }
+        
+        let cell = box({
+          if icon_name not in (none, "") {
+            icon(icon_name, color: cfg.colors.primary, size: 0.9em)
+            h(0.3em)
+          }
+          skill
+          if item_level not in (none, "") {
+            h(0.3em)
+            text(size: small, fill: cfg.colors.secondary, [\(] + item_level + [\)])
+          }
+        })
+        
+        items.push(cell)
       }
-      if level != none {
-        h(0.5em)
-        text(size: small, fill: cfg.colors.secondary, [\(] + level + [\)])
-      }
+      
+      items.join([, ])
     },
   )
   v(cfg.spacing.at("list-item"))
@@ -348,13 +371,18 @@
 /// 多个技能分类的展示
 ///
 /// 参数:
-///   categories: 技能分类数组
+///   categories: 技能分类数组，每项为：
+///     - category: 分类名称
+///     - skills: 技能列表数组
+///     - level: 熟练度数组（可选）
+///     - icon-names: 图标名称数组（可选）
 #let skill-list(categories) = {
   for cat in categories {
     skill-category(
       cat.at("category"),
       cat.at("skills"),
-      level: cat.at("level", default: none),
+      level: cat.at("level", default: ()),
+      icon-names: cat.at("icon-names", default: ()),
     )
   }
 }
