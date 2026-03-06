@@ -122,12 +122,6 @@
   ),
 
   style-features: (
-    // 是否启用链接下划线
-    link-underline: false,
-
-    // 是否启用标题自动编号
-    heading-numbering: false,
-
     // 是否启用段落两端对齐
     paragraph-justify: true,
 
@@ -391,6 +385,9 @@
     lang: "zh",
     region: "cn",
   )
+
+  // 代码 / 等宽文本设置
+  show raw: set text(font: cfg.at("mono-font-stack"))
 
   // 段落设置
   set par(
