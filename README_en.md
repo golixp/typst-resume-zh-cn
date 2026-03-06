@@ -221,8 +221,8 @@ The workflow will automatically: install required fonts, compile the Typst docum
 
 #project-item(
   "Project Name",
-  ("Go", "gRPC", "etcd"),
   [Project description],
+  tech-stack: ("Go", "gRPC", "etcd"),
   responsibilities: (
     [Contribution 1],
     [Contribution 2],
@@ -239,7 +239,8 @@ The workflow will automatically: install required fonts, compile the Typst docum
 #skill-category(
   "Programming Languages",
   ("Go", "Python", "Java", "TypeScript"),
-  level: "Expert",
+  level: ("Expert", "Proficient", none, ""),
+  icon-names: ("go", "python", none, ""),
 )
 ```
 

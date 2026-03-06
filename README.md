@@ -219,8 +219,8 @@ git push origin v1.0.0
 
 #project-item(
   "项目名称",
-  ("Go", "gRPC", "etcd"),
   [项目描述],
+  tech-stack: ("Go", "gRPC", "etcd"),
   responsibilities: (
     [职责 1],
     [职责 2],
@@ -237,7 +237,8 @@ git push origin v1.0.0
 #skill-category(
   "编程语言",
   ("Go", "Python", "Java", "TypeScript"),
-  level: "精通",
+  level: ("精通", "熟练", none, ""),
+  icon-names: ("go", "python", none, ""),
 )
 ```
 
