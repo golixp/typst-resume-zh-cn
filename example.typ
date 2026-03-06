@@ -114,7 +114,7 @@
 #work-item(
   "2021.06 - 至今", // 时间段
   "某科技有限公司", // 公司名称
-  "高级后端工程师", // 职位
+  position: "高级后端工程师", // 职位
   location: "北京", // 地点（可选）
   tech-stack: ("Go", "Python", "Kubernetes", "PostgreSQL"), // 技术栈（可选）
   responsibilities: (
@@ -133,7 +133,7 @@
 #work-item(
   "2019.07 - 2021.05",
   "某互联网公司",
-  "后端开发工程师",
+  position: "后端开发工程师",
   location: "上海",
   tech-stack: ("Java", "Spring Boot", "MySQL", "Redis"),
   responsibilities: (

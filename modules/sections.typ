@@ -236,7 +236,7 @@
 /// 参数:
 ///   period: 时间段
 ///   company: 公司名称
-///   position: 职位
+///   position: 职位（可选）
 ///   location: 地点（可选）
 ///   responsibilities: 职责列表（可选）
 ///   achievements: 成就列表（可选）
@@ -244,7 +244,7 @@
 #let work-item(
   period,
   company,
-  position,
+  position: none,
   location: none,
   responsibilities: (),
   achievements: (),
@@ -261,8 +261,11 @@
         h(0.5em)
         text(size: small, fill: cfg.colors.secondary, [\(] + location + [\)])
       }
-      v(0.15em)
-      text(fill: cfg.colors.primary, weight: "medium", position)
+      
+      if position != none{
+        v(0.15em)
+        text(fill: cfg.colors.primary, weight: "medium", position)
+      }
       
       if tech-stack.len() > 0 {
         v(0.3em)
