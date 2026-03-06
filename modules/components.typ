@@ -187,34 +187,58 @@
   gap: 0.75em,
 ) = context {
   let cfg = get-config()
-  let layout = cfg.at("layout-defaults")
+  let layout-cfg = cfg.at("layout-defaults")
 
-  let actual-side-width = if side-width == auto { layout.sidebar-width } else { side-width }
+  let actual-side-width = if side-width == auto { layout-cfg.sidebar-width } else { side-width }
   let actual-line-color = if line-color == auto { cfg.colors.primary } else { line-color }
-  let actual-line-stroke = if line-stroke == auto { layout.timeline-stroke } else { line-stroke }
+  let actual-line-stroke = if line-stroke == auto { layout-cfg.timeline-stroke } else { line-stroke }
 
-  let side-size = measure(side)
-  let content-size = measure(content)
-  let height = calc.max(side-size.height, content-size.height) + 0.5em
-  
-  grid(
-    columns: (actual-side-width, if with-line { 0% } else { 0pt }, 1fr),
-    column-gutter: gap,
-    {
-      set align(right + top)
-      v(0.25em)
-      side
-      v(0.25em)
-    },
-    if with-line {
-      line(end: (0em, height), stroke: actual-line-stroke + actual-line-color)
-    },
-    {
-      v(0.25em)
-      content
-      v(0.25em)
-    },
-  )
+  layout(size => {
+    // 将配置中的列宽比例转换为当前容器宽度下的绝对长度
+    let side-width-len = size.width * actual-side-width
+
+    let side-size = measure(
+      width: side-width-len,
+      {
+        set align(right + top)
+        v(0.25em)
+        side
+        v(0.25em)
+      },
+    )
+
+    // 剩余宽度近似视为内容列宽度，用于估算真实高度
+    let content-width = size.width - side-width-len - gap * 2
+    let content-size = measure(
+      width: content-width,
+      {
+        v(0.25em)
+        content
+        v(0.25em)
+      },
+    )
+
+    let height = calc.max(side-size.height, content-size.height)
+
+    grid(
+      columns: (actual-side-width, if with-line { 0% } else { 0pt }, 1fr),
+      column-gutter: gap,
+      {
+        set align(right + top)
+        v(0.25em)
+        side
+        v(0.25em)
+      },
+      if with-line {
+        line(end: (0em, height), stroke: actual-line-stroke + actual-line-color)
+      },
+      {
+        v(0.25em)
+        content
+        v(0.25em)
+      },
+    )
+  })
 }
 
 /// 水平分隔线
