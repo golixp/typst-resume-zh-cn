@@ -450,7 +450,7 @@
   // 项目名称行
   box({
     if link != none {
-      icon-link(link, "link", name, color: cfg.colors.primary)
+      icon-link(link, "link", text-content: name, color: cfg.colors.primary)
     } else {
       strong(name)
     }
@@ -464,8 +464,8 @@
   
   // 技术栈
   if tech-stack.len() > 0 {
-  tag-list(tech-stack)
-  v(0.3em)
+    tag-list(tech-stack)
+    v(0.3em)
   }
   
   // 描述

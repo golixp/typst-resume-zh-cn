@@ -519,7 +519,7 @@
 ///
 /// 参数:
 ///   url: 链接地址
-///   text: 显示文本（可选，默认为URL）
+///   text-content: 显示文本（可选，默认为URL）
 ///   color: 链接颜色（默认主题色）
 #let styled-link(
   url,
@@ -538,12 +538,12 @@
 /// 参数:
 ///   url: 链接地址
 ///   icon-name: 图标名称
-///   text: 显示文本
+///   text-content: 显示文本（可选，默认为URL）
 ///   color: 颜色（默认主题色）
 #let icon-link(
   url,
   icon-name,
-  text-content,
+  text-content: none,
   color: auto,
 ) = context {
   let cfg = get-config()
@@ -552,7 +552,7 @@
   box({
     icon(icon-name, color: actual-color)
     h(0.3em)
-    link(url, text(fill: actual-color, text-content))
+    styled-link(url, text-content: text-content)
   })
 }
 
