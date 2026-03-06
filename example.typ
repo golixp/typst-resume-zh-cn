@@ -165,8 +165,8 @@
 // 使用 project-item 添加项目
 #project-item(
   "分布式任务调度平台", // 项目名称
-  ("Go", "gRPC", "etcd", "React"), // 技术栈
   [自研分布式任务调度系统，支持定时任务、工作流编排和任务依赖管理。], // 项目描述
+  tech-stack: ("Go", "gRPC", "etcd", "React"), // 技术栈
   responsibilities: (
     // 职责/贡献（可选）
     [设计基于 etcd 的分布式锁和选主机制，保证任务执行的高可用],
@@ -179,8 +179,8 @@
 
 #project-item(
   "实时数据分析平台",
-  ("Python", "Flink", "Kafka", "ClickHouse"),
   [构建实时数据处理和分析平台，支持业务指标实时计算和可视化展示。],
+  tech-stack: ("Python", "Flink", "Kafka", "ClickHouse"),
   responsibilities: (
     [基于 Flink 开发实时 ETL 流程，处理日均 TB 级数据],
     [设计 ClickHouse 数据模型，优化查询性能],
