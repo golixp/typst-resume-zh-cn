@@ -6,108 +6,6 @@
 #import "config.typ": get-config
 
 // --------------------------------------------
-// 图标字符定义 (Icon Character Definitions)
-// --------------------------------------------
-
-/// Nerdfont 图标字符映射表
-/// 每个图标对应一个 Unicode 字符码点
-#let icon-chars = (
-  // 联系方式类图标
-  phone: "\u{f095}",           // 
-  email: "\u{f0e0}",           // 
-  location: "\u{f041}",        // 
-  link: "\u{f0c1}",            // 
-  github: "\u{f09b}",          // 
-  gitlab: "\u{f296}",          // 
-  linkedin: "\u{f08c}",        // 
-  twitter: "\u{f099}",         // 
-  website: "\u{f0ac}",         // 
-  blog: "\u{ef36}",            // 
-  wechat: "\u{f1d7}",          // 
-  qq: "\u{f1d6}",              // 
-  zhihu: "\u{eeba}",           // 
-  weibo: "\u{f18a}",           // 
-
-
-  // 教育类图标
-  graduation: "\u{f19d}",      // 
-  education: "\u{f51c}",       // 
-  book: "\u{f02d}",            // 
-  school: "\u{ee12}",          // 
-  university: "\u{f19c}",      // 
-  
-  // 工作类图标
-  work: "\u{f0b1}",            // 
-  building: "\u{f1ad}",        // 
-  briefcase: "\u{f0f2}",       // 
-  office: "\u{f0f7}",          // 
-  
-  // 技能类图标
-  code: "\u{f121}",            // 
-  terminal: "\u{f120}",        // 
-  laptop: "\u{f109}",          // 
-  server: "\u{f233}",          // 
-  database: "\u{f1c0}",        // 
-  cloud: "\u{f0c2}",           // 
-  tools: "\u{f0ad}",           // 
-  wrench: "\u{f0ad}",          // 
-  gear: "\u{f013}",            // 
-  
-  // 项目类图标
-  project: "\u{f126}",         // 
-  folder: "\u{f07b}",          // 
-  folder-open: "\u{f07c}",     // 
-  file: "\u{f15b}",            // 
-  files: "\u{f0c5}",           // 
-  
-  // 个人特质类图标
-  user: "\u{f007}",            // 
-  star: "\u{f005}",            // 
-  heart: "\u{f004}",           // 
-  lightbulb: "\u{f0eb}",       // 
-  award: "\u{ee22}",           // 
-  certificate: "\u{f0a3}",     // 
-  trophy: "\u{f091}",          // 
-  
-  // 技术栈图标
-  rust: "\u{e7a8}",            // 
-  python: "\u{e73c}",          // 
-  java: "\u{e256}",            // 
-  go: "\u{e65e}",              // 
-  javascript: "\u{e74e}",      // 
-  typescript: "\u{e628}",      // 
-  html: "\u{e736}",            // 
-  css: "\u{e749}",             // 
-  react: "\u{e7ba}",           // 
-  vue: "\u{e6a0}",             // 
-  angular: "\u{e753}",         // 
-  docker: "\u{f308}",          // 
-  kubernetes: "\u{e81d}",      // 
-  git: "\u{f1d3}",             // 
-  linux: "\u{e712}",           // 
-  
-  // 其他常用图标
-  typst: "\u{f37f}",           // 
-  calendar: "\u{f073}",        // 
-  clock: "\u{f017}",           // 
-  check: "\u{f00c}",           // 
-  check-circle: "\u{f058}",    // 
-  info: "\u{f129}",            // 
-  warning: "\u{f071}",         // 
-  error: "\u{f057}",           // 
-  arrow-right: "\u{f061}",     // 
-  arrow-left: "\u{f060}",      // 
-  arrow-up: "\u{f062}",        // 
-  arrow-down: "\u{f063}",      // 
-  plus: "\u{f067}",            // 
-  minus: "\u{f068}",           // 
-  search: "\u{f002}",          // 
-  home: "\u{f015}",            // 
-  menu: "\u{f0c9}",            // 
-  close: "\u{f00d}",           // 
-)
-
-// --------------------------------------------
 // 图标函数 (Icon Functions)
 // --------------------------------------------
 
@@ -132,8 +30,9 @@
   let cfg = get-config()
   let actual-color = if color == auto { cfg.colors.primary } else { color }
   let nerd-font = cfg.fonts.nerd
+  let icon-chars = cfg.icon-chars 
 
-  let char = icon-chars.at(name, default: "\u{f128}")  // 默认使用问号图标
+  let char = icon-chars.at(name, default: "\u{f128}")  // 默认使用问号图标: 
   box(
     baseline: baseline,
     height: size,
@@ -310,7 +209,6 @@
 
 /// 导出所有图标相关字典
 #let icons = (
-  chars: icon-chars,
   contact: contact-icons,
   sections: section-icons,
 )
