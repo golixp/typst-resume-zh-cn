@@ -429,15 +429,15 @@
 ///
 /// 参数:
 ///   name: 项目名称
-///   tech-stack: 技术栈
 ///   description: 项目描述
+///   tech-stack: 技术栈 (可选)
 ///   responsibilities: 职责/贡献列表（可选）
 ///   link: 项目链接（可选）
 ///   period: 时间段（可选）
 #let project-item(
   name,
-  tech-stack,
   description,
+  tech-stack: (),
   responsibilities: (),
   link: none,
   period: none,
@@ -463,9 +463,10 @@
   v(0.15em)
   
   // 技术栈
+  if tech-stack.len() > 0 {
   tag-list(tech-stack)
-  
   v(0.3em)
+  }
   
   // 描述
   description
