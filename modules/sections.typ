@@ -432,6 +432,7 @@
 ///   description: 项目描述
 ///   tech-stack: 技术栈 (可选)
 ///   responsibilities: 职责/贡献列表（可选）
+///   achievements: 成就列表（可选）
 ///   link: 项目链接（可选）
 ///   period: 时间段（可选）
 #let project-item(
@@ -439,6 +440,7 @@
   description,
   tech-stack: (),
   responsibilities: (),
+  achievements: (),
   link: none,
   period: none,
 ) = context {
@@ -475,6 +477,12 @@
   if responsibilities.len() > 0 {
     v(0.3em)
     list-view(responsibilities)
+  }
+  
+  if achievements.len() > 0 {
+    v(0.3em)
+    text(size: small, fill: cfg.colors.secondary, [主要成就：])
+    list-view(achievements)
   }
   
   v(cfg.spacing.at("list-item"))
