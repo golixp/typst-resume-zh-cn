@@ -364,7 +364,6 @@
       items.join([, ])
     },
   )
-  v(cfg.spacing.at("list-item"))
 }
 
 /// 技能列表
@@ -446,7 +445,7 @@
 ) = context {
   let cfg = get-config()
   let small = cfg.at("font-sizes").small
-
+  
   v(0.3em)
   
   // 项目名称行
