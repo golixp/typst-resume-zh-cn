@@ -34,12 +34,12 @@ A modular resume template built with [Typst](https://typst.app/), optimized for 
 
 ```typst
 // Remote package import
-#import "@preview/golixp-resume-zh-cn:0.1.0": *
+#import "@preview/golixp-resume-zh-cn:0.1.1": *
 ```
 
 ### Via Typst Web App
 
-Click the link: https://typst.app/app?template=golixp-resume-zh-cn&version=0.1.0
+Click the link: https://typst.app/app?template=golixp-resume-zh-cn&version=0.1.1
 
 To use this template in the official Typst Web App, you need to manually upload Nerd Fonts to the root directory. Download link for Nerd Fonts: https://github.com/ryanoasis/nerd-fonts/releases/download/v3.3.0/NerdFontsSymbolsOnly.zip
 
@@ -59,28 +59,28 @@ Linux:
 
 ```bash
 mkdir -p ~/.local/share/typst/packages/local/golixp-resume-zh-cn/
-git clone https://github.com/golixp/typst-resume-zh-cn.git ~/.local/share/typst/packages/local/golixp-resume-zh-cn/0.1.0
+git clone https://github.com/golixp/typst-resume-zh-cn.git ~/.local/share/typst/packages/local/golixp-resume-zh-cn/0.1.1
 ```
 
 macOS:
 
 ```zsh
 mkdir -p "~/Library/Application Support/typst/packages/local/golixp-resume-zh-cn/"
-git clone https://github.com/golixp/typst-resume-zh-cn.git ~/Library/Application\ Support/typst/packages/local/golixp-resume-zh-cn/0.1.0
+git clone https://github.com/golixp/typst-resume-zh-cn.git ~/Library/Application\ Support/typst/packages/local/golixp-resume-zh-cn/0.1.1
 ```
 
 Windows:
 
 ```powershell
-mkdir -Force "$env:APPDATA\typst\packages\local\golixp-resume-zh-cn\0.1.0"
-git clone https://github.com/golixp/typst-resume-zh-cn.git "$env:APPDATA\typst\packages\local\golixp-resume-zh-cn\0.1.0"
+mkdir -Force "$env:APPDATA\typst\packages\local\golixp-resume-zh-cn\0.1.1"
+git clone https://github.com/golixp/typst-resume-zh-cn.git "$env:APPDATA\typst\packages\local\golixp-resume-zh-cn\0.1.1"
 ```
 
 #### Import Local Package
 
 ```typst
 // Local package import
-#import "@local/golixp-resume-zh-cn:0.1.0": *
+#import "@local/golixp-resume-zh-cn:0.1.1": *
 ```
 
 ### Prerequisites
@@ -164,10 +164,10 @@ The workflow will automatically: install required fonts, compile the Typst docum
 
 ```typst
 // Typst Packages
-#import "@preview/golixp-resume-zh-cn:0.1.0": *
+#import "@preview/golixp-resume-zh-cn:0.1.1": *
 
 // Typst Local Packages
-// #import "@local/golixp-resume-zh-cn:0.1.0": *
+// #import "@local/golixp-resume-zh-cn:0.1.1": *
 
 // Local File
 // #import "lib.typ": *

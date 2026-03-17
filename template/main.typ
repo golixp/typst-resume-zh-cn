@@ -4,12 +4,17 @@
 // 本文件展示如何使用模块化简历模板创建个人简历
 // 用户可以根据自己的需求修改内容和样式
 
+// 如果在官方 Typst Web App 使用此模板, 需要手动上传 Nerd Font 字体到根目录, 
+// Nerd Font 字体下载链接: https://github.com/ryanoasis/nerd-fonts/releases/download/v3.3.0/NerdFontsSymbolsOnly.zip
+
 // --------------------------------------------
 // 模块导入 (Module Imports)
 // --------------------------------------------
 
 // 导入库入口 - 提供配置 API + 图标 + 组件
-#import "@preview/golixp-resume-zh-cn:0.1.0": *
+
+#import "@preview/golixp-resume-zh-cn:0.1.1": *
+
 
 // ============================================
 // 导入页面配置 (Import Page Configuration)
@@ -106,7 +111,7 @@
 #work-item(
   "2021.06 - 至今", // 时间段
   "某科技有限公司", // 公司名称
-  "高级后端工程师", // 职位
+  position: "高级后端工程师", // 职位
   location: "北京", // 地点（可选）
   tech-stack: ("Go", "Python", "Kubernetes", "PostgreSQL"), // 技术栈（可选）
   responsibilities: (
@@ -125,7 +130,7 @@
 #work-item(
   "2019.07 - 2021.05",
   "某互联网公司",
-  "后端开发工程师",
+  position: "后端开发工程师",
   location: "上海",
   tech-stack: ("Java", "Spring Boot", "MySQL", "Redis"),
   responsibilities: (
@@ -157,8 +162,8 @@
 // 使用 project-item 添加项目
 #project-item(
   "分布式任务调度平台", // 项目名称
-  ("Go", "gRPC", "etcd", "React"), // 技术栈
   [自研分布式任务调度系统，支持定时任务、工作流编排和任务依赖管理。], // 项目描述
+  tech-stack: ("Go", "gRPC", "etcd", "React"), // 技术栈
   responsibilities: (
     // 职责/贡献（可选）
     [设计基于 etcd 的分布式锁和选主机制，保证任务执行的高可用],
@@ -171,8 +176,8 @@
 
 #project-item(
   "实时数据分析平台",
-  ("Python", "Flink", "Kafka", "ClickHouse"),
   [构建实时数据处理和分析平台，支持业务指标实时计算和可视化展示。],
+  tech-stack: ("Python", "Flink", "Kafka", "ClickHouse"),
   responsibilities: (
     [基于 Flink 开发实时 ETL 流程，处理日均 TB 级数据],
     [设计 ClickHouse 数据模型，优化查询性能],

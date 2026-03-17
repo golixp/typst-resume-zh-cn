@@ -32,12 +32,12 @@
 
 ```typst
 // 远程包导入
-#import "@preview/golixp-resume-zh-cn:0.1.0": *
+#import "@preview/golixp-resume-zh-cn:0.1.1": *
 ```
 
 ### 通过 Typst Web App
 
-点击链接: https://typst.app/app?template=golixp-resume-zh-cn&version=0.1.0
+点击链接: https://typst.app/app?template=golixp-resume-zh-cn&version=0.1.1
 
 在官方 Typst Web App 使用此模板, 需要手动上传 Nerd Font 字体到根目录, Nerd Font 字体下载链接: https://github.com/ryanoasis/nerd-fonts/releases/download/v3.3.0/NerdFontsSymbolsOnly.zip
 
@@ -57,28 +57,28 @@ Linux:
 
 ```bash
 mkdir -p ~/.local/share/typst/packages/local/golixp-resume-zh-cn/
-git clone https://github.com/golixp/typst-resume-zh-cn.git ~/.local/share/typst/packages/local/golixp-resume-zh-cn/0.1.0
+git clone https://github.com/golixp/typst-resume-zh-cn.git ~/.local/share/typst/packages/local/golixp-resume-zh-cn/0.1.1
 ```
 
 macOS:
 
 ```zsh
 mkdir -p "~/Library/Application Support/typst/packages/local/golixp-resume-zh-cn/"
-git clone https://github.com/golixp/typst-resume-zh-cn.git ~/Library/Application\ Support/typst/packages/local/golixp-resume-zh-cn/0.1.0
+git clone https://github.com/golixp/typst-resume-zh-cn.git ~/Library/Application\ Support/typst/packages/local/golixp-resume-zh-cn/0.1.1
 ```
 
 Windows:
 
 ```powershell
-mkdir -Force "$env:APPDATA\typst\packages\local\golixp-resume-zh-cn\0.1.0"
-git clone https://github.com/golixp/typst-resume-zh-cn.git "$env:APPDATA\typst\packages\local\golixp-resume-zh-cn\0.1.0"
+mkdir -Force "$env:APPDATA\typst\packages\local\golixp-resume-zh-cn\0.1.1"
+git clone https://github.com/golixp/typst-resume-zh-cn.git "$env:APPDATA\typst\packages\local\golixp-resume-zh-cn\0.1.1"
 ```
 
 #### 导入包
 
 ```typst
 // 本地包导入
-#import "@local/golixp-resume-zh-cn:0.1.0": *
+#import "@local/golixp-resume-zh-cn:0.1.1": *
 ```
 
 ### 前置要求
@@ -162,10 +162,10 @@ git push origin v1.0.0
 
 ```typst
 // 远程包导入
-#import "@preview/golixp-resume-zh-cn:0.1.0": *
+#import "@preview/golixp-resume-zh-cn:0.1.1": *
 
 // 本地包导入
-// #import "@local/golixp-resume-zh-cn:0.1.0": *
+// #import "@local/golixp-resume-zh-cn:0.1.1": *
 
 // 本地文件导入
 // #import "lib.typ": *

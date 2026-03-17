@@ -17,10 +17,10 @@
 #import "lib.typ": *
 
 // 远程包导入
-// #import "@preview/golixp-resume-zh-cn:0.1.0": *
+// #import "@preview/golixp-resume-zh-cn:0.1.1": *
 
 // 本地包导入
-// #import "@local/golixp-resume-zh-cn:0.1.0": *
+// #import "@local/golixp-resume-zh-cn:0.1.1": *
 
 // ============================================
 // 导入页面配置 (Import Page Configuration)
