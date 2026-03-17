@@ -30,17 +30,25 @@ A modular resume template built with [Typst](https://typst.app/), optimized for 
 
 ## Quick Start
 
-### Clone the Repository
-
-```bash
-git clone https://github.com/golixp/typst-resume-zh-cn.git
-```
-
 ### Using Typst Packages
 
 ```typst
 // Remote package import
 #import "@preview/golixp-resume-zh-cn:0.1.0": *
+```
+
+### Via Typst Web App
+
+Click the link: https://typst.app/app?template=golixp-resume-zh-cn&version=0.1.0
+
+To use this template in the official Typst Web App, you need to manually upload Nerd Fonts to the root directory. Download link for Nerd Fonts: https://github.com/ryanoasis/nerd-fonts/releases/download/v3.3.0/NerdFontsSymbolsOnly.zip
+
+Upload `SymbolsNerdFont-Regular.ttf` and `SymbolsNerdFontMono-Regular.ttf` from the zip file to the root directory of your project in the Typst Web App.
+
+### Clone the Repository
+
+```bash
+git clone https://github.com/golixp/typst-resume-zh-cn.git
 ```
 
 ### Using Typst Local Packages

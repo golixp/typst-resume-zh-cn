@@ -4,6 +4,9 @@
 // 本文件展示如何使用模块化简历模板创建个人简历
 // 用户可以根据自己的需求修改内容和样式
 
+// 如果在官方 Typst Web App 使用此模板, 需要手动上传 Nerd Font 字体到根目录, 
+// Nerd Font 字体下载链接: https://github.com/ryanoasis/nerd-fonts/releases/download/v3.3.0/NerdFontsSymbolsOnly.zip
+
 // --------------------------------------------
 // 模块导入 (Module Imports)
 // --------------------------------------------

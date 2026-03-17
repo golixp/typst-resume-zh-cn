@@ -28,17 +28,25 @@
 
 ## 快速开始
 
-### 克隆仓库
-
-```bash
-git clone https://github.com/golixp/typst-resume-zh-cn.git
-```
-
 ### 通过 Typst Packages
 
 ```typst
 // 远程包导入
 #import "@preview/golixp-resume-zh-cn:0.1.0": *
+```
+
+### 通过 Typst Web App
+
+点击链接: https://typst.app/app?template=golixp-resume-zh-cn&version=0.1.0
+
+在官方 Typst Web App 使用此模板, 需要手动上传 Nerd Font 字体到根目录, Nerd Font 字体下载链接: https://github.com/ryanoasis/nerd-fonts/releases/download/v3.3.0/NerdFontsSymbolsOnly.zip
+
+将压缩包内的 `SymbolsNerdFont-Regular.ttf` 和 `SymbolsNerdFontMono-Regular.ttf` 上传到 Typst Web App 对应项目根目录.
+
+### 克隆仓库
+
+```bash
+git clone https://github.com/golixp/typst-resume-zh-cn.git
 ```
 
 ### 通过 Typst Local Packages
