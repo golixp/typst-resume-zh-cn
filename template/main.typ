@@ -50,7 +50,7 @@
     (icon: "github", content: "github.com/zhangsan", link: "https://github.com/zhangsan"),
   ),
   // 可选：添加照片
-  // photo: "photo.jpg",
+  // photo: image("photo.jpg"),
   // photo-width: 2.5cm,
 )
 

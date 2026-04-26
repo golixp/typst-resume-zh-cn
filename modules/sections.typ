@@ -123,7 +123,7 @@
 /// 参数:
 ///   name: 姓名
 ///   info-items: 信息项数组
-///   photo: 照片路径（可选）
+///   photo: 照片内容（可选，接收 image(...) content）
 ///   photo-width: 照片宽度
 #let personal-header(
   name,
@@ -144,7 +144,7 @@
     },
     {},
     if photo != none {
-      image(photo, width: photo-width)
+      box(width: photo-width, photo)
     },
   )
 }
