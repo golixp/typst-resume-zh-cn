@@ -1,0 +1,4 @@
+interface:
+  display_name: "Typst 官方包发布"
+  short_description: "AI 辅助发布 Typst 官方包 PR"
+  default_prompt: "使用 $typst-package-release 准备并发布下一个 Typst 官方包 PR。"
