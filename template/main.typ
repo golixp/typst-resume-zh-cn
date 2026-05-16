@@ -13,7 +13,7 @@
 
 // 导入库入口 - 提供配置 API + 图标 + 组件
 
-#import "@preview/golixp-resume-zh-cn:0.1.1": *
+#import "@preview/golixp-resume-zh-cn:0.1.2": *
 
 
 // ============================================
